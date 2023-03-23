@@ -12,3 +12,5 @@ const Contact = mongoose.model(
     },
   })
 );
+
+module.exports = Contact;
