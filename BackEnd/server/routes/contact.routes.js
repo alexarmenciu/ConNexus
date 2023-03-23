@@ -1,4 +1,5 @@
 const controller = require("../controllers/contact.controller");
+const { authJwt } = require("../middlewares");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -7,17 +8,29 @@ module.exports = function (app) {
   });
 
   //POST for creating a new contact
-  app.post("/api/putcontact", controller.create);
+  app.post("/api/putcontact", [authJwt.verifyToken], controller.create);
 
   //GET for getting all contacts
-  app.get("/api/getcontacts", controller.findAll);
+  app.get("/api/getcontacts", [authJwt.verifyToken], controller.findAll);
 
   //GET for getting all contacts with a given name
-  app.get("/api/getcontacts/:name", controller.findByName);
+  app.get(
+    "/api/getcontacts/:name",
+    [authJwt.verifyToken],
+    controller.findByName
+  );
 
   //DELETE for deleting a contact
-  app.delete("/api/deletecontacts/:name", controller.deleteContact);
+  app.delete(
+    "/api/deletecontacts/:name",
+    [authJwt.verifyToken],
+    controller.deleteContact
+  );
 
   //UPDATE for updating a contact
-  app.put("/api/updatecontact/:name", controller.updateContact);
+  app.put(
+    "/api/updatecontact/:name",
+    [authJwt.verifyToken],
+    controller.updateContact
+  );
 };

@@ -11,6 +11,7 @@ exports.create = (req, res) => {
 
   // Create a Contact
   const contact = new Contact({
+    uid: req.body.uid,
     name: req.body.name,
     additionalFields: req.body.additionalFields,
   });
@@ -29,8 +30,8 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  // get all contacts from database
-  Contact.find()
+  // get all contacts from database matching a given uid
+  Contact.find({ uid: req.body.uid })
     .then((data) => {
       res.send(data);
     })
@@ -44,7 +45,7 @@ exports.findAll = (req, res) => {
 
 exports.findByName = (req, res) => {
   // get all contacts that match a given name from database
-  Contact.find({ name: req.params.name })
+  Contact.find({ name: req.params.name, uid: req.body.uid })
     .then((data) => {
       res.send(data);
     })
@@ -58,7 +59,7 @@ exports.findByName = (req, res) => {
 
 exports.deleteContact = (req, res) => {
   // delete a contact from database
-  Contact.deleteOne({ name: req.params.name })
+  Contact.deleteOne({ name: req.params.name, uid: req.body.uid })
     .then((data) => {
       res.send(data);
     })
@@ -71,7 +72,10 @@ exports.deleteContact = (req, res) => {
 
 exports.updateContact = (req, res) => {
   // update a contact in the database
-  Contact.updateOne({ name: req.params.name }, { $set: req.body })
+  Contact.updateOne(
+    { name: req.params.name, uid: req.body.uid },
+    { $set: req.body }
+  )
     .then((data) => {
       res.send(data);
     })
