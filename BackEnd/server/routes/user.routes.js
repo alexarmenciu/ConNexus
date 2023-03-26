@@ -52,4 +52,11 @@ module.exports = function(app) {
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.update
   );
+
+  // delete
+  app.delete(
+    "/api/users/:id",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.delete
+  );
 };

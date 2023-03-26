@@ -1,11 +1,19 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const Contact = db.contact;
+const User = db.user;
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.name || !req.body.uid) {
     res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
+
+  // validate User with uid exists
+  const userExists = await User.exists({ _id: req.body.uid });
+  if (!userExists) {
+    res.status(400).send({ message: "User does not exist!" });
     return;
   }
 

@@ -8,7 +8,10 @@ module.exports = function (app) {
   });
 
   //POST for creating a new contact
-  app.post("/api/putcontact", [authJwt.verifyToken], controller.create);
+  app.post("/api/putcontact",
+    // [authJwt.verifyToken],
+    controller.create
+  );
 
   //GET for getting all contacts
   app.get("/api/getcontacts", [authJwt.verifyToken], controller.findAll);
