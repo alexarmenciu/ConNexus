@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const Contact = require("./contact.model");
+const ObjectId = mongoose.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
   username: String,
@@ -45,8 +47,10 @@ UserSchema.pre("save", function (next) {
 
 // Update all contacts associated with the user before removing the user
 UserSchema.pre('deleteOne', async function(next) {
+  const id = this.getQuery()['_id'];
+  const contact = await Contact.find({ uid: id });
   try {
-    await Contact.updateMany({ uid: this._id }, { uid: null, addionalFields: {} });
+    await Contact.updateMany({ uid: id }, { uid: null, additionalFields: {} });
     next();
   } catch(err) {
     next(err);

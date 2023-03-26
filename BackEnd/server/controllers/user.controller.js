@@ -1,7 +1,7 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
-const mongoose = require('mongoose');
+const mongoose = db.mongoose;
 const ObjectId = mongoose.Types.ObjectId;
 
 //Show here the different privacy content

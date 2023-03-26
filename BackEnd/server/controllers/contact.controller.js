@@ -2,39 +2,50 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const Contact = db.contact;
 const User = db.user;
+const mongoose = require('mongoose');
 
 exports.create = async (req, res) => {
-  // Validate request
+// Validate request
   if (!req.body.name || !req.body.uid) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
-  // validate User with uid exists
-  const userExists = await User.exists({ _id: req.body.uid });
-  if (!userExists) {
-    res.status(400).send({ message: "User does not exist!" });
-    return;
-  }
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
 
-  // Create a Contact
-  const contact = new Contact({
-    uid: req.body.uid,
-    name: req.body.name,
-    additionalFields: req.body.additionalFields,
-  });
+    // Validate User with uid exists
+    const user = await User.findById(req.body.uid).session(session);
+    if (!user) {
+      res.status(400).send({ message: "User does not exist!" });
+      return;
+    }
 
-  // Save Contact in the database
-  contact
-    .save(contact)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "An error occurred while creating the Contact.",
-      });
+    // Create a Contact
+    const contact = new Contact({
+      uid: req.body.uid,
+      name: req.body.name,
+      additionalFields: req.body.additionalFields,
     });
+
+    // Save Contact in the database
+    await contact.save({ session });
+
+    // Update user's contacts
+    user.contacts.push(contact._id);
+    await user.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.send(contact);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      message: err.message || "An error occurred while creating the Contact.",
+    });
+  }
 };
 
 exports.findAll = (req, res) => {
