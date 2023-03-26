@@ -109,3 +109,20 @@ exports.update = async (req, res) => {
     });
   }
 };
+
+exports.delete = async (req, res) => {
+  try {
+    const data = await User.remove(req.params.id);
+    if (data === null) {
+      res.status(404).send({
+        message: `Couldn't find user with id ${req.params.id}.`,
+      });
+    } else {
+      res.send({ message: `User was deleted successfully!` });
+    }
+  } catch (err) {
+    res.status(500).send({
+      message: "Could not delete user with id " + req.params.id,
+    });
+  }
+}

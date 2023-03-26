@@ -10,6 +10,12 @@ const UserSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role"
     }
+  ],
+  contacts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Contact"
+    }
   ]
 });
 
@@ -35,6 +41,16 @@ UserSchema.pre("save", function (next) {
       next();
     });
   });
+});
+
+// Remove all contacts associated with the user before removing the user
+UserSchema.pre('remove', async function(next) {
+  try {
+    await Contact.updateMany({ uid: this._id }, { uid: null, addionalFields: {} });
+    next();
+  } catch(err) {
+    next(err);
+  }
 });
 
 // Compare the entered password with the hashed password in the database

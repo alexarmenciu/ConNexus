@@ -6,7 +6,10 @@ const Contact = mongoose.model(
   "Contact",
   new mongoose.Schema({
     name: String,
-    uid: String,
+    uid:  {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     additionalFields: {
       type: Map,
       of: String,
