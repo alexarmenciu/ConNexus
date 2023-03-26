@@ -26,4 +26,37 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  app.get(
+    "/api/users",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.findAll
+  ); 
+
+  app.get(
+    "/api/users/:id",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.show
+  );
+
+  //post
+  app.post(
+    "/api/users",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.create
+  );
+
+  // patch
+  app.patch(
+    "/api/users/:id",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.update
+  );
+
+  // delete
+  app.delete(
+    "/api/users/:id",
+    // [authJwt.verifyToken, authJwt.isAdmin],
+    controller.delete
+  );
 };
