@@ -45,12 +45,12 @@ UserSchema.pre("save", function (next) {
   });
 });
 
-// Update all contacts associated with the user before removing the user
+// Delete all contacts associated with the user before removing the user
 UserSchema.pre('deleteOne', async function(next) {
   const id = this.getQuery()['_id'];
   const contact = await Contact.find({ uid: id });
   try {
-    await Contact.updateMany({ uid: id }, { uid: null, additionalFields: {} });
+    await Contact.deleteMany({ _id: { $in: contact } });
     next();
   } catch(err) {
     next(err);
