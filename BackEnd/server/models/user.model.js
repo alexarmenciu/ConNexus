@@ -4,7 +4,11 @@ const Contact = require("./contact.model");
 const ObjectId = mongoose.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
-  username: String,
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   email: String,
   password: String,
   roles: [
