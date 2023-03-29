@@ -12,6 +12,9 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import ChangePassword from "./components/ChangePassword";
+import ChangeUsername from "./components/ChangeUsername";
+import Policy from "./components/Policy";
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "./common/EventBus";
@@ -83,6 +86,14 @@ const App = () => {
               </Link>
             </li>
           )}
+
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/policy"} className="nav-link">
+                Privacy Policy
+              </Link>
+            </li>
+          )}
         </div>
 
         {currentUser ? (
@@ -125,6 +136,9 @@ const App = () => {
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
           <Route path="/admin" element={<BoardAdmin />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
+          <Route path="/changeUsername" element={<ChangeUsername />} />
+          <Route path="/policy" element={<Policy />} />
         </Routes>
       </div>
 

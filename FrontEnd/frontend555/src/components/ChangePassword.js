@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { Link } from "react-router-dom";
 // import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
@@ -12,26 +11,6 @@ const required = (value) => {
     return (
       <div className="invalid-feedback d-block">
         This field is required!
-      </div>
-    );
-  }
-};
-
-// const validEmail = (value) => {
-//   if (!isEmail(value)) {
-//     return (
-//       <div className="invalid-feedback d-block">
-//         This is not a valid email.
-//       </div>
-//     );
-//   }
-// };
-
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="invalid-feedback d-block">
-        The username must be between 3 and 20 characters.
       </div>
     );
   }
@@ -47,35 +26,29 @@ const vpassword = (value) => {
   }
 };
 
-const Register = (props) => {
+  
+
+const ChangePassword = (props) => {
   const form = useRef();
+  const currentUser = AuthService.getCurrentUser();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
-  //const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  const [checked1, setChecked1] = React.useState(false);
-  const [checked2, setChecked2] = React.useState(false);
 
-  const handleChange1 = () => {
-    setChecked1(!checked1);
+
+  const onChangeOldPassword = (e) => {
+    const OldPassword = e.target.value;
+    setOldPassword(OldPassword);
   };
 
-  const handleChange2 = () => {
-    setChecked2(!checked2);
+  const onChangeConfirmPassword = (e) => {
+    const confirmpassword = e.target.value;
+    setconfirmPassword(confirmpassword);
   };
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  // const onChangeEmail = (e) => {
-  //   const email = e.target.value;
-  //   setEmail(email);
-  // };
 
   const onChangePassword = (e) => {
     const password = e.target.value;
@@ -91,7 +64,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, password).then(
+      AuthService.changePassword(currentUser.id, currentUser.username, oldPassword, currentUser.username, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -124,62 +97,43 @@ const Register = (props) => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
-                />
-              </div>
-
-              {/* <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div> */}
-
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="oldPassword">Old Password</label>
                 <Input
                   type="password"
                   className="form-control"
-                  name="password"
+                  name="oldPassword"
+                  value={oldPassword}
+                  onChange={onChangeOldPassword}
+                  validations={[required]}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="newPassword">New Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="newPassword"
                   value={password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
                 />
               </div>
 
-              <div className="checkboxes">
-              <Checkbox
-                label=" We won't use your PII..."
-                value={checked1}
-                onChange={handleChange1}
-              />
-              <Checkbox
-                label=" something2"
-                value={checked2}
-                onChange={handleChange2}
-              />
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={onChangeConfirmPassword}
+                  validations={[required]}
+                />
               </div>
 
               <div className="form-group">
-                <button disabled={!checked1 || !checked2} className="btn btn-primary btn-block">Sign Up</button>
-              </div>
-
-              <div className="policy">
-                <Link to={"/policy"} className="nav-link">
-                  Privacy Policy
-                </Link>
+                <button className="btn btn-primary btn-block">Save</button>
               </div>
 
             </div>
@@ -204,13 +158,4 @@ const Register = (props) => {
   );
 };
 
-const Checkbox = ({ label, value, onChange }) => {
-  return (
-    <label>
-      <input type="checkbox" checked={value} onChange={onChange} />
-      {label}
-    </label>
-  );
-};
-
-export default Register;
+export default ChangePassword;
