@@ -82,11 +82,11 @@ exports.update = async (req, res) => {
   }
 
   User.updateOne(
-    { username: req.params.oldusername, password: req.params.oldpassword },
+    { username: req.body.oldusername, password: req.body.newpassword },
     {
       $set: {
-        username: req.params.newusername,
-        password: req.params.newpassword,
+        username: req.body.newusername,
+        password: req.body.newpassword,
       },
     }
   )
@@ -96,21 +96,6 @@ exports.update = async (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: err.message || "An error occurred while updating the user.",
-      });
-    });
-
-  Contact.updateMany(
-    { username: req.params.oldusername },
-    { $set: { uid: req.params.newusername } }
-  )
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "An error occurred while updating associated contacts.",
       });
     });
 };

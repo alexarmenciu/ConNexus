@@ -1,12 +1,9 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, Content-Type, Accept"
-    );
+module.exports = function (app) {
+  app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
     next();
   });
 
@@ -28,34 +25,34 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/users",
+    "/api/getusers",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.findAll
-  ); 
+  );
 
   app.get(
-    "/api/users/:id",
+    "/api/getuser/:id",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.show
   );
 
   //post
   app.post(
-    "/api/users",
+    "/api/createuser",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.create
   );
 
   // patch
   app.patch(
-    "/api/users/:id",
+    "/api/updateuser/:id",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.update
   );
 
   // delete
   app.delete(
-    "/api/users/:id",
+    "/api/deleteuser/:id",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete
   );
