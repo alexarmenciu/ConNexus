@@ -1,6 +1,7 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
+const Contact = db.contact;
 const mongoose = db.mongoose;
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -25,8 +26,7 @@ exports.findAll = (req, res) => {
   User.getAll((err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving users.",
+        message: err.message || "Some error occurred while retrieving users.",
       });
     else res.send(data);
   });
@@ -50,8 +50,7 @@ exports.create = (req, res) => {
   User.create(user, (err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the user.",
+        message: err.message || "Some error occurred while creating the user.",
       });
     else res.send(data);
   });
@@ -60,7 +59,7 @@ exports.create = (req, res) => {
 exports.show = (req, res) => {
   User.findById(ObjectId(req.params.id), (err, data) => {
     if (err) {
-      console.error(err); 
+      console.error(err);
       if (err.kind === "not_found") {
         res.status(404).send({
           message: `Couldn't find user with id ${req.params.id}.`,
@@ -72,7 +71,7 @@ exports.show = (req, res) => {
       }
     } else res.send(data);
   });
-}
+};
 
 exports.update = async (req, res) => {
   // Validate Request
@@ -82,31 +81,30 @@ exports.update = async (req, res) => {
     });
   }
 
-  // validate username is not in the body
-  if (req.body.username) {
-    res.status(400).send({
-      message: "Username cannot be changed.",
-    });
-    return;
-  }
-
-  try {
-    const data = await User.updateById(
-      ObjectId(req.params.id),
-      req.body
-    );
-    if (data === null) {
-      res.status(404).send({
-        message: `Couldn't find user with id ${req.params.id}.`,
-      });
-    } else {
+  User.updateOne({ username: req.params.username }, { $set: req.body })
+    .then((data) => {
       res.send(data);
-    }
-  } catch (err) {
-    res.status(500).send({
-      message: "Error updating user with id " + req.params.id,
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "An error occurred while updating the user.",
+      });
     });
-  }
+
+  Contact.updateMany(
+    { username: req.params.username },
+    { $set: { uid: req.params.username } }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message ||
+          "An error occurred while updating associated contacts.",
+      });
+    });
 };
 
 exports.delete = async (req, res) => {
@@ -125,4 +123,4 @@ exports.delete = async (req, res) => {
       message: "Could not delete user with id " + req.params.id,
     });
   }
-}
+};
