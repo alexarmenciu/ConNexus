@@ -1,12 +1,12 @@
 const db = require("./../models");
 const ROLES = db.ROLES;
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const User = db.user;
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
   // Username
   User.findOne({
-    username: req.body.username
+    username: req.body.username,
   }).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -18,6 +18,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       return;
     }
 
+    next();
   });
 };
 
@@ -26,7 +27,7 @@ checkRolesExisted = (req, res, next) => {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
         res.status(400).send({
-          message: `Failed! Role ${req.body.roles[i]} does not exist!`
+          message: `Failed! Role ${req.body.roles[i]} does not exist!`,
         });
         return;
       }
@@ -38,7 +39,7 @@ checkRolesExisted = (req, res, next) => {
 
 const verifySignUp = {
   checkDuplicateUsernameOrEmail,
-  checkRolesExisted
+  checkRolesExisted,
 };
 
 module.exports = verifySignUp;
