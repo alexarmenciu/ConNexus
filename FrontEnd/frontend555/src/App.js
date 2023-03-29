@@ -54,11 +54,11 @@ const App = () => {
         { " Contact Manager " }
         </Link>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/home"} className="nav-link">
               Home
             </Link>
-          </li>
+          </li> */}
 
           {showModeratorBoard && (
             <li className="nav-item">
@@ -79,7 +79,7 @@ const App = () => {
           {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
-                User
+                Contacts
               </Link>
             </li>
           )}
@@ -118,7 +118,7 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
           <Route exact path={"/"} element={<Home />} />
-          <Route exact path={"/home"} element={<Home />} />
+          {/* <Route exact path={"/home"} element={<Home />} /> */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/profile" element={<Profile />} />
