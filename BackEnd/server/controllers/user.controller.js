@@ -43,7 +43,6 @@ exports.create = (req, res) => {
   // Create the user
   const user = new User({
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password, // the hashing is done in the model before saving
   });
 
