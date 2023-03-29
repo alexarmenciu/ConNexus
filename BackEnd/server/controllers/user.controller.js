@@ -81,7 +81,15 @@ exports.update = async (req, res) => {
     });
   }
 
-  User.updateOne({ username: req.params.username }, { $set: req.body })
+  User.updateOne(
+    { username: req.params.oldusername, password: req.params.oldpassword },
+    {
+      $set: {
+        username: req.params.newusername,
+        password: req.params.newpassword,
+      },
+    }
+  )
     .then((data) => {
       res.send(data);
     })
@@ -92,8 +100,8 @@ exports.update = async (req, res) => {
     });
 
   Contact.updateMany(
-    { username: req.params.username },
-    { $set: { uid: req.params.username } }
+    { username: req.params.oldusername },
+    { $set: { uid: req.params.newusername } }
   )
     .then((data) => {
       res.send(data);
