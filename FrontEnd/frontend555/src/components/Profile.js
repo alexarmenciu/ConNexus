@@ -27,6 +27,10 @@ const Profile = () => {
     navigate("/changeUsername");
     window.location.reload();
   }
+  function handleDeleteAccount() {
+    navigate("/");
+    window.location.reload();
+  }
 
   return (
     <div className="container">
@@ -57,8 +61,13 @@ const Profile = () => {
               onClick={handleClickPassword}>Change Password
           </button>
       </p>
+      <p className="lead">
+          <button className="btn btn-warning"
+              onClick={handleDeleteAccount}>Delete Account
+          </button>
+      </p>
       <Link to={"/policy"} className="nav-link">
-        Privacy Policy
+        Privacy Policy <i class="bi bi-link-45deg"></i>
       </Link>
     </div>
   );

@@ -53,8 +53,8 @@ const App = () => {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-        <i class="bi bi-graph-up"></i>
-        { " Contact Manager " }
+        <i class="bi bi-card-list"></i>
+        { " ConneXus " }
         </Link>
         <div className="navbar-nav mr-auto">
           {/* <li className="nav-item">
