@@ -80,27 +80,34 @@ exports.update = async (req, res) => {
       message: "Content can not be empty!",
     });
   }
-  console.log(req.body);
+  // check that old password is correct
+  const user = await User.findById(ObjectId(req.params.id));
 
-  User.updateOne(
-    { _id: ObjectId(req.params.id) },
-    {
-      $set: {
-        username: req.body.newusername,
-        password: req.body.newpassword,
-      },
-    }
-  )
-    .then((data) => {
-      res.send(data);
-      console.log("Success", data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the user.",
-      });
-      console.error("Error", err);
+  // make sure id is correct
+  if (user === null) {
+    res.status(404).send({
+      message: `Couldn't find user with id ${req.params.id}.`,
     });
+  } else if (user.password !== req.body.oldpassword) {
+    res.status(401).send({
+      message: "Old password is incorrect!",
+    });
+  } else {
+    // update the user
+    user.username = req.body.newusername;
+    user.password = req.body.newpassword;
+    user.save((err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "An error occurred while updating the user.",
+        });
+        console.error("Error", err);
+      } else {
+        res.send(data);
+        console.log("Success", data);
+      }
+    });
+  }
 };
 
 exports.delete = async (req, res) => {
