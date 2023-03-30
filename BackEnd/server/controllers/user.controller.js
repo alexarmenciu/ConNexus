@@ -80,9 +80,10 @@ exports.update = async (req, res) => {
       message: "Content can not be empty!",
     });
   }
+  console.log(req.body);
 
   User.updateOne(
-    { username: req.body.oldusername, password: req.body.newpassword },
+    { _id: ObjectId(req.params.id) },
     {
       $set: {
         username: req.body.newusername,
@@ -92,11 +93,13 @@ exports.update = async (req, res) => {
   )
     .then((data) => {
       res.send(data);
+      console.log("Success", data);
     })
     .catch((err) => {
       res.status(500).send({
         message: err.message || "An error occurred while updating the user.",
       });
+      console.error("Error", err);
     });
 };
 
