@@ -10,6 +10,13 @@ const register = (username, password) => {
   });
 };
 
+const deleteuser = (id, username, password) => {
+  return axios.delete(API_USER + "deleteuser/" + id, {
+    username,
+    password,
+  });
+};
+
 const changePassword = (id, oldusername, oldpassword, newusername, newpassword ) => {
   alert("changing password with id: " + id + " oldusername: " + oldusername + " newusername: " + newusername + " newpassword: " + newpassword + "\n api: " + API_USER + "updateuser/" + id)
   return axios.patch(API_USER + "updateuser/" + id, {
@@ -63,7 +70,8 @@ const AuthService = {
   logout,
   getCurrentUser,
   changePassword,
-  changeUsername
+  changeUsername,
+  deleteuser
 };
 
 export default AuthService;

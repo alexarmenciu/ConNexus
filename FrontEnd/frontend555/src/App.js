@@ -14,6 +14,7 @@ import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 import ChangePassword from "./components/ChangePassword";
 import ChangeUsername from "./components/ChangeUsername";
+import DeleteUser from "./components/DeleteUser";
 import Policy from "./components/Policy";
 
 // import AuthVerify from "./common/AuthVerify";
@@ -139,6 +140,7 @@ const App = () => {
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/changeUsername" element={<ChangeUsername />} />
           <Route path="/policy" element={<Policy />} />
+          <Route path="/deleteuser" element={<DeleteUser />} />
         </Routes>
       </div>
 

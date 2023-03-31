@@ -58,6 +58,15 @@ const Register = (props) => {
   const [message, setMessage] = useState("");
   const [checked1, setChecked1] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
+  const [checked3, setChecked3] = React.useState(false);
+  const [checked4, setChecked4] = React.useState(false);
+
+  const handleChange4 = () => {
+    setChecked4(!checked4);
+  };
+  const handleChange3 = () => {
+    setChecked3(!checked3);
+  };
 
   const handleChange1 = () => {
     setChecked1(!checked1);
@@ -161,19 +170,33 @@ const Register = (props) => {
 
               <div className="checkboxes">
               <Checkbox
-                label=" We won't use your PII..."
+                label=" We only collect the bare minimum of data required for this application"
                 value={checked1}
                 onChange={handleChange1}
               />
               <Checkbox
-                label=" something2"
+                label=" You have full control over all data provided to us"
                 value={checked2}
                 onChange={handleChange2}
               />
+              <Checkbox
+                label=" Your account and all its related data will be permanently deleted after 150 days of inactivity"
+                value={checked3}
+                onChange={handleChange3}
+              />
+              <Checkbox
+                label=" By creating an account, you aknowledge and accept our privacy policy found below"
+                value={checked4}
+                onChange={handleChange4}
+              />
+
+
               </div>
 
+              
+
               <div className="form-group">
-                <button disabled={!checked1 || !checked2} className="btn btn-primary btn-block">Sign Up</button>
+                <button disabled={!checked1 || !checked2 || !checked3 || !checked4} className="btn btn-primary btn-block">Sign Up</button>
               </div>
 
               <div className="policy">

@@ -28,7 +28,7 @@ const Profile = () => {
     window.location.reload();
   }
   function handleDeleteAccount() {
-    navigate("/");
+    navigate("/deleteuser");
     window.location.reload();
   }
 
