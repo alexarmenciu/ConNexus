@@ -108,7 +108,8 @@ exports.update = async (req, res) => {
         });
         console.error("Error", err);
       } else {
-        res.send(data);
+
+        res.send({ data, message: "Password was changed successfully!" });
         console.log("Success", data);
       }
     });
