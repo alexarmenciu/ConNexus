@@ -44,7 +44,7 @@ const Home = () => {
           information stored in our database is encrypted. Unlike other sites, we do absolutely no tracking of any sorts. Therefore don't
           expect any extensive improvement to user experience. Also, we only take the minimum required information on the contacts you save in your 
           account to provide the intended use of a contact manager. Finally, your account and all information, aka the contacts saved on it, will be 
-          deleted from the cloud upon 1 year of inactivity, or if the user decides to delete their own account. <br></br><br></br>
+          deleted from the cloud upon 150 days of inactivity, or if the user decides to delete their own account. <br></br><br></br>
           For more information, take a look at our privacy policy.
           <Link to={"/policy"} className="nav-link">
             Privacy Policy <i class="bi bi-link-45deg"></i>

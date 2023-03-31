@@ -55,7 +55,7 @@ const ChangeUsername = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.changeUsername(currentUser.username, oldPassword, newUsername, oldPassword).then(
+      AuthService.changeUsername(currentUser.id, currentUser.username, oldPassword, newUsername, oldPassword).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
