@@ -23,6 +23,6 @@ const UserService = {
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
-}
+};
 
 export default UserService;

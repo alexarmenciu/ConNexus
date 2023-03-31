@@ -1,8 +1,8 @@
-# Contact Manager Requirements
+# ConNexus Requirements
 
 ## System Purpose and Scope:
 
-The target system is an internet based contact manager. Users do not have to register an email address or phone number to use the system, rather a username system is used to implement privacy by design. Each piece of data required for account creation (username, password) will have a detailed privacy policy linked, and require the user to check a box to confirm they have read the per-requirement policy.
+The target system is an internet based contact manager named ConNexus. Users do not have to register an email address or phone number to use the system, rather a username system is used to implement privacy by design. Each piece of data required for account creation (username, password) will have a detailed privacy policy linked, and require the user to check a box to confirm they have read the per-requirement policy.
 
 Once a user's account is created, they can add contacts to their account, with the option to create custom fields (for example, if a contact _John_ has a phone number and an Instagram account, but no email address, a contact _John_ can be created with the fields _phone number_ and _Instagram_). Users will have access to a list of their contacts, and can search for contacts by name to return any of the associated user contact info.
 
@@ -14,14 +14,14 @@ The home page of the Contacts presents the user's profile, followed by an alphab
 
 Taking a look at a comparison of the of the privacy features of the two systems:
 
-|                                       | Privacy Oriented Contact Manager | Samsung Contact Manager |
-| ------------------------------------- | -------------------------------- | ----------------------- |
-| No email required                     | &#9745;                          | &#9744;                 |
-| Simple and clear privacy policy       | &#9745;                          | &#9744;                 |
-| Can add custom fields                 | &#9745;                          | &#9744;                 |
-| Encrypts data on servers              | &#9745;                          | &#9745;                 |
-| No third parties                      | &#9745;                          | Unknown                 |
-| No usage of data beyond functionality | &#9745;                          | &#9744;                 |
+|                                       | ConNexus | Samsung Contact Manager |
+| ------------------------------------- | -------- | ----------------------- |
+| No email required                     | &#9745;  | &#9744;                 |
+| Simple and clear privacy policy       | &#9745;  | &#9744;                 |
+| Can add custom fields                 | &#9745;  | &#9744;                 |
+| Encrypts data on servers              | &#9745;  | &#9745;                 |
+| No third parties                      | &#9745;  | Unknown                 |
+| No usage of data beyond functionality | &#9745;  | &#9744;                 |
 
 ## Functional Requirements:
 
