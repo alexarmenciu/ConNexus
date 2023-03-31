@@ -18,7 +18,6 @@ const deleteuser = (id, username, password) => {
 };
 
 const changePassword = (id, oldusername, oldpassword, newusername, newpassword ) => {
-  alert("changing password with id: " + id + " oldusername: " + oldusername + " newusername: " + newusername + " newpassword: " + newpassword + "\n api: " + API_USER + "updateuser/" + id)
   return axios.patch(API_USER + "updateuser/" + id, {
     oldusername,
     oldpassword,

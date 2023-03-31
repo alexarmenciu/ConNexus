@@ -4,6 +4,7 @@ const User = db.user;
 const Contact = db.contact;
 const mongoose = db.mongoose;
 const ObjectId = mongoose.Types.ObjectId;
+var bcrypt = require("bcryptjs");
 
 //Show here the different privacy content
 exports.allAccess = (req, res) => {
@@ -82,20 +83,24 @@ exports.update = async (req, res) => {
   }
   // check that old password is correct
   const user = await User.findById(ObjectId(req.params.id));
+  var passwordIsValid = bcrypt.compareSync(
+    req.body.oldpassword,
+    user.password
+  );
 
   // make sure id is correct
   if (user === null) {
     res.status(404).send({
       message: `Couldn't find user with id ${req.params.id}.`,
     });
-  } else if (user.password !== req.body.oldpassword) {
+  } else if (!passwordIsValid) {
     res.status(401).send({
       message: "Old password is incorrect!",
     });
   } else {
     // update the user
     user.username = req.body.newusername;
-    user.password = req.body.newpassword;
+    user.password = bcrypt.hashSync(req.body.newpassword, 8);
     user.save((err, data) => {
       if (err) {
         res.status(500).send({
