@@ -50,6 +50,13 @@ const App = () => {
     setCurrentUser(undefined);
   };
 
+  // currently unused because not sure how to call it from ChangeUsername.js
+  // const updateUser = () => {
+  //   const updateuser = AuthService.getCurrentUser();
+  //   setCurrentUser(updateuser);
+  // }
+  
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">

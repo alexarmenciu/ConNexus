@@ -59,6 +59,18 @@ const ChangeUsername = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          if (response.data.username) {
+              // Get the existing data
+              var existing = localStorage.getItem('user');
+        
+              // Add new data to localStorage Array
+              existing['username'] = response.data.username;
+              // Save back to localStorage
+              localStorage.setItem('user', JSON.stringify(existing));
+              //window.location.reload();
+
+              // NOTE: it's updating the local storage with new username, but it's not updating in the navbar... don't know how to do it yet.
+            }
         },
         (error) => {
           const resMessage =
