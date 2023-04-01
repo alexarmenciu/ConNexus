@@ -108,7 +108,9 @@ exports.update = async (req, res) => {
         });
         console.error("Error", err);
       } else {
-        if(req.body.oldusername !== req.body.newusername){
+        var oldU = JSON.stringify(req.body.oldusername);
+        var newU = JSON.stringify(req.body.newusername);
+        if(oldU == newU){
           res.send({ data, message: "Password was changed successfully!" });
         }
         else{
