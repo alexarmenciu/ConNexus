@@ -51,7 +51,7 @@ module.exports = function (app) {
   );
 
   // delete
-  app.delete(
+  app.patch(
     "/api/deleteuser/:id",
     // [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete

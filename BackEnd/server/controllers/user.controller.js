@@ -125,6 +125,30 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
+    // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+  }
+  // check that old password is correct
+  const user = await User.findById(ObjectId(req.params.id));
+  var passwordIsValid = bcrypt.compareSync(
+    req.body.password,
+    user.password
+  );
+
+  // make sure id is correct
+  if (user === null) {
+    res.status(404).send({
+      message: `Couldn't find user with id ${req.params.id}.`,
+    });
+  } else if (!passwordIsValid) {
+    res.status(401).send({
+      message: "Old password is incorrect!",
+    });
+  } 
+  else{
     const data = await User.deleteOne(ObjectId(req.params.id));
     if (data === null) {
       res.status(404).send({
@@ -133,6 +157,8 @@ exports.delete = async (req, res) => {
     } else {
       res.send({ message: `User was deleted successfully!` });
     }
+  }
+    
   } catch (err) {
     console.error(err);
     res.status(500).send({

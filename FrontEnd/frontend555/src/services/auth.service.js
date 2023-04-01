@@ -11,9 +11,12 @@ const register = (username, password) => {
 };
 
 const deleteuser = (id, username, password) => {
-  return axios.delete(API_USER + "deleteuser/" + id, {
+  return axios.patch(API_USER + "deleteuser/" + id, {
     username,
     password,
+  })
+  .then(() => {
+    localStorage.removeItem("user");
   });
 };
 
