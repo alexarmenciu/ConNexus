@@ -14,7 +14,7 @@ module.exports = function (app) {
   );
 
   //GET for getting all contacts
-  app.get("/api/getcontacts", [authJwt.verifyToken], controller.findAll);
+  app.get("/api/getcontacts", controller.findAll);
 
   //GET for getting all contacts with a given name
   app.get(

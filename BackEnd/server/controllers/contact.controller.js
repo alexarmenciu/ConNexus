@@ -21,13 +21,14 @@ exports.create = async (req, res) => {
       res.status(400).send({ message: "User does not exist!" });
       return;
     }
-
+    console.log(req.body)
     // Create a Contact
     const contact = new Contact({
       uid: req.body.uid,
       name: req.body.name,
-      additionalFields: req.body.additionalFields,
+      additionalFields: JSON.stringify(req.body.additionalFields), // convert to string because it's encrypted
     });
+
 
     // Save Contact in the database
     await contact.save({ session });
@@ -50,7 +51,7 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
-  Contact.find({ uid: req.body.uid })
+  Contact.find({ })
     .then((data) => {
       res.send(data);
     })
