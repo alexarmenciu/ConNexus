@@ -32,8 +32,9 @@ const ContactSchema = new mongoose.Schema({
     ref: 'User'
   },
   additionalFields: {
-    type: String, // Change type to String
-    default: '{}', // Default value as empty JSON object
+    type: Map,
+    of: String,
+    default: {}
   },
 });
 
@@ -41,9 +42,16 @@ const ContactSchema = new mongoose.Schema({
 ContactSchema.pre('save', async function (next) {
   const contact = this;
   if (contact.isModified('additionalFields')) {
-    const dataToEncrypt = JSON.stringify(contact.additionalFields); // Convert to strin
-    let encrypted = CryptoJS.AES.encrypt(dataToEncrypt, encryptionKey).toString();
-    contact.additionalFields = encrypted;
+    // encrypt the key value pairs
+    encryptedFields = {};
+    this.additionalFields.forEach((value, key) => {
+      encryptedKey = CryptoJS.AES.encrypt(key, encryptionKey).toString();
+      encryptedValue = CryptoJS.AES.encrypt(value, encryptionKey).toString();
+      encryptedFields[encryptedKey] = encryptedValue;
+    });
+
+
+    contact.additionalFields = encryptedFields;
   }
   next();
 });
@@ -51,8 +59,7 @@ ContactSchema.pre('save', async function (next) {
 // Decrypt the additionalFields property after retrieving from the database
 ContactSchema.post('findOne', async function (doc) {
   if (doc) {
-    const decrypted = CryptoJS.AES.decrypt(doc.additionalFields, encryptionKey).toString(CryptoJS.enc.Utf8);
-    doc.additionalFields = JSON.parse(decrypted); // Convert back to object
+    doc.additionalFields = doc.decryptAdditionalFields();
   }
 });
 
@@ -60,12 +67,22 @@ ContactSchema.post('find', async function (docs) {
   console.log("pre ", docs)
   if (docs) {
     for (const doc of docs) {
-      const decrypted = CryptoJS.AES.decrypt(doc.additionalFields, encryptionKey).toString(CryptoJS.enc.Utf8);
-      doc.additionalFields = JSON.parse(decrypted); // Convert back to object
+      doc.additionalFields = doc.decryptAdditionalFields();
     }
   }
   console.log("post ", docs)
 });
+
+// helper to decrypt the additionalFields property
+ContactSchema.methods.decryptAdditionalFields = function () {
+  decryptedFields = {};
+  this.additionalFields.forEach((value, key) => {
+    decryptedKey = CryptoJS.AES.decrypt(key, encryptionKey).toString(CryptoJS.enc.Utf8);
+    decryptedValue = CryptoJS.AES.decrypt(value, encryptionKey).toString(CryptoJS.enc.Utf8);
+    decryptedFields[decryptedKey] = decryptedValue;
+  });
+  return decryptedFields;
+}
 
 // Create the Contact model
 const Contact = mongoose.model('Contact', ContactSchema);

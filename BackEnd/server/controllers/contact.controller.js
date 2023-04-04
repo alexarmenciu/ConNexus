@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
     const contact = new Contact({
       uid: req.body.uid,
       name: req.body.name,
-      additionalFields: JSON.stringify(req.body.additionalFields), // convert to string because it's encrypted
+      additionalFields: req.body.additionalFields, // convert to string because it's encrypted
     });
 
 
