@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "crypto-js": "^4.1.1",
-    "mongodb-client-encryption": "^2.7.1"
-  }
-}
