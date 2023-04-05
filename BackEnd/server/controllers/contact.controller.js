@@ -21,12 +21,18 @@ exports.create = async (req, res) => {
       res.status(400).send({ message: "User does not exist!" });
       return;
     }
-    console.log(req.body)
+    let fields = new Map();
+    req.body.additionalFields.forEach(field => { 
+      if(field.label != "") {
+        fields.set(field.label, field.value)
+      }
+    });
+    console.log(req.body.additionalFields)
     // Create a Contact
     const contact = new Contact({
       uid: req.body.uid,
       name: req.body.name,
-      additionalFields: req.body.additionalFields, // convert to string because it's encrypted
+      additionalFields: fields,
     });
 
 
@@ -39,7 +45,7 @@ exports.create = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
-
+    console.log(req.body.name, "added")
     res.send(contact);
   } catch (err) {
     console.error(err);

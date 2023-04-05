@@ -30,3 +30,39 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.containerStyle {
+  margin: 20px 20px 20px 20px;
+}
+
+.contactStyle {
+  display: flex;
+  flex-direction: row !important;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row !important;
+  column-gap: 30px;
+  margin-bottom: 30px;
+}
+.contactList {
+  
+  width: 10%;
+}
+
+.noPadding {
+  padding: 0 0 0 0 !important;
+}
+
+
+.vertical {
+  border-left: 1px solid gray;
+  height: 100%;
+  position:absolute;
+  left: 18%;
+}
+
+.list-group /deep/ {
+
+}
