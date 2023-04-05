@@ -27,7 +27,6 @@ exports.create = async (req, res) => {
         fields.set(field.label, field.value)
       }
     });
-    console.log(req.body.additionalFields)
     // Create a Contact
     const contact = new Contact({
       uid: req.body.uid,
@@ -59,6 +58,7 @@ exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
   Contact.find({uid: req.body.uid})
     .then((data) => {
+      console.log(data);
       res.send(data);
     })
     .catch((err) => {
@@ -97,7 +97,17 @@ exports.deleteContact = (req, res) => {
 };
 
 exports.updateContact = (req, res) => {
-  console.log("received");
+  console.log(req.body);
+  //change additionalfields to map object
+  let fields = new Map();
+  req.body.additionalFields.forEach(field => { 
+    if(field.label != "") {
+      fields.set(field.label, field.value)
+    }
+  });
+
+  req.body.additionalFields = fields;
+  console.log(req.body);
   // update a contact in the database
   Contact.updateOne(
     { name: req.params.oldname, uid: req.body.uid },

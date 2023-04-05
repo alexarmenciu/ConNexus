@@ -64,13 +64,13 @@ ContactSchema.post('findOne', async function (doc) {
 });
 
 ContactSchema.post('find', async function (docs) {
-  console.log("pre ", docs)
+  //console.log("pre ", docs)
   if (docs) {
     for (const doc of docs) {
       doc.additionalFields = doc.decryptAdditionalFields();
     }
   }
-  console.log("post ", docs)
+  //console.log("post ", docs)
 });
 
 // helper to decrypt the additionalFields property
