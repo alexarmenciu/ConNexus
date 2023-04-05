@@ -31,8 +31,8 @@ module.exports = function (app) {
   );
 
   //UPDATE for updating a contact
-  app.post(
-    "/api/updatecontact",
+  app.patch(
+    "/api/updatecontact/:oldname",
     //[authJwt.verifyToken],
     controller.updateContact
   );

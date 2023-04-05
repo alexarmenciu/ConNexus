@@ -20,7 +20,7 @@ const getContacts = () => {
 };
 
 const updateContact = (oldname, name, additionalFields) => {
-    return axios.post(API_URL + "updatecontact", {
+    return axios.patch(API_URL + "updatecontact/" + oldname, {
         uid,
         name,
         additionalFields
