@@ -34,7 +34,7 @@
 
 // export default BoardUser;
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContactService from "../services/contact.service";
 
 const ContactList = () => {
@@ -52,22 +52,61 @@ const ContactList = () => {
     { name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
     { name: "Bob Johnson", email: "bobjohnson@example.com", phone: "555-555-5555" }
   ]);
-  
+
+  //const contacts2 = ContactService.getContacts();
   const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedContactFields, setSelectedContactFields] = useState([]);
+  const [selectedContactName, setSelectedContactName] = useState('');
   const [newContactName, setNewContactName] = useState('');
   const [newContactFields, setNewContactFields] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [addMode, setAddMode] = useState(false);
+  useEffect(() => {
+    getContacts();
+  }, []);
 
+  const objectToObjectArray = (obj) => {
+    const objectArray = [];
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        objectArray.push({ label: key, value: obj[key] });
+      }
+    }
+    return objectArray;
+  };
+
+  const getContacts = async () => {
+    try {
+      const response = await ContactService.getContacts();;
+      console.log(response.data);
+      response.data.forEach(contact => {
+        contact.additionalFields = objectToObjectArray(contact.additionalFields);
+      })
+      setContacts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //new COntact
   const handleNewContactField = () => {
     setNewContactFields([...newContactFields, { label: '', value: '' }]);
   };
 
+  const handleNewSelectedContactField = () => {
+    setSelectedContactFields([...selectedContactFields, { label: '', value: '' }]);
+  };
+
   const handleRemoveContactField = () => {
+    console.log(contacts);
     let protoArray = [...newContactFields]
     protoArray.pop()
     setNewContactFields([...protoArray]);
+  };
+
+  const handleRemoveSelectedContactField = () => {
+    let protoArray = [...selectedContactFields]
+    protoArray.pop()
+    setSelectedContactFields([...protoArray]);
   };
 
   const handleNewContactFieldChange = (index, key, value) => {
@@ -76,16 +115,52 @@ const ContactList = () => {
     setNewContactFields(fields);
   };
 
+  const handleSelectedContactFieldChange = (index, key, value) => {
+    const fields = [...selectedContactFields];
+    fields[index][key] = value;
+    setSelectedContactFields(fields);
+  };
+
   const handleNewContactSubmit = (event) => {
     event.preventDefault();
     ContactService.createContact(newContactName, newContactFields)
-    console.log({ name: newContactName, fieldz: newContactFields });
-    //setNewContactName('');
-    //setNewContactFields([]);
+      .then(() => {
+        console.log({ name: newContactName, fieldz: newContactFields });
+        setNewContactName('');
+        setNewContactFields([]);
+        getContacts();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleContactUpdate = (event) => {
+    event.preventDefault();
+    ContactService.updateContact(selectedContact.name, selectedContactName, selectedContactFields)
+      .then(() => {
+        console.log({ name: selectedContact.name, name2: selectedContactName });
+        setEditMode(false);
+        getContacts()
+        .then(() => {
+          contacts.forEach((contact) => {
+            if (contact.name == selectedContactName) {
+              setSelectedContact(contact);
+            }
+          });
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
+    setSelectedContactFields(contact.additionalFields);
+    setSelectedContactName(contact.name);
+    setEditMode(false);
+    console.log(selectedContact);
   };
 
   const handleFieldChange = (fieldName, newValue) => {
@@ -98,9 +173,17 @@ const ContactList = () => {
 
   const handleAddModeToggle = () => {
     setAddMode((prev) => !prev);
-    handleContactClick(null);
+    //sets everything back to default for selected contact
+    resetSelectedContacts();
     setNewContactName('');
     setNewContactFields([]);
+  };
+
+  const resetSelectedContacts = () => {
+    //sets everything back to default for selected contact
+    setSelectedContact(null);
+    setSelectedContactFields([]);
+    setSelectedContactName('');
   };
 
   return (
@@ -149,11 +232,67 @@ const ContactList = () => {
           {selectedContact ? (
             <>
               <h2>{selectedContact.name}</h2>
-              <p>Email: {selectedContact.email}</p>
-              <p>Phone: {selectedContact.phone}</p>
+
               {editMode ? (
                 <>
-                  <div className="mb-3">
+                <form onSubmit={handleContactUpdate}>
+              <div style={{ marginBottom: "10px" }}>
+                <div>
+                  <label>Name:</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    value={selectedContactName}
+                    required
+                    onChange={(e) => setSelectedContactName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Fields:</label>
+                  {selectedContactFields.map((field, index) => (
+                    <div style={{ marginBottom: "20px" }} key={index}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={field.label}
+                        placeholder="Label"
+                        onChange={(e) =>
+                          handleSelectedContactFieldChange(
+                            index,
+                            'label',
+                            e.target.value
+                          )
+                        }
+                      />
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={field.value}
+                        placeholder="Value"
+                        onChange={(e) =>
+                          handleSelectedContactFieldChange(
+                            index,
+                            'value',
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  ))}
+
+                </div>
+                <div className="buttonGroup" style={{ columnGap: "10px" }}>
+                  <button type="button" className="btn btn-success" onClick={handleNewSelectedContactField}>
+                    Add Field
+                  </button>
+                  <button type="button" className="btn btn-danger" onClick={handleRemoveSelectedContactField}>
+                    Remove Last Field
+                  </button>
+                  <button type="submit" className="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+                  {/* <div className="mb-3">
                     <label htmlFor="editName" className="form-label">Name</label>
                     <input
                       type="text"
@@ -182,10 +321,43 @@ const ContactList = () => {
                       value={selectedContact.phone}
                       onChange={(e) => handleFieldChange("phone", e.target.value)}
                     />
-                  </div>
+                  </div> */}
                 </>
               ) : (
                 <>
+                  {newContactFields.map((field, index) => (
+                    <div style={{ marginBottom: "20px" }} key={index}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={field.label}
+                        placeholder="Label"
+                        onChange={(e) =>
+                          handleNewContactFieldChange(
+                            index,
+                            'label',
+                            e.target.value
+                          )
+                        }
+                      />
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={field.value}
+                        placeholder="Value"
+                        onChange={(e) =>
+                          handleNewContactFieldChange(
+                            index,
+                            'value',
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  ))}
+                  {selectedContact.additionalFields.map((field, index) => (
+                    <p key={index}>{field.label} : {field.value}</p>
+                  ))}
                   <button
                     className="btn btn-primary"
                     onClick={handleEditModeToggle}

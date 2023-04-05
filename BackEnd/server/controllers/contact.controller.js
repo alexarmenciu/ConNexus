@@ -57,7 +57,7 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
-  Contact.find({ })
+  Contact.find({uid: req.body.uid})
     .then((data) => {
       res.send(data);
     })
@@ -97,17 +97,18 @@ exports.deleteContact = (req, res) => {
 };
 
 exports.updateContact = (req, res) => {
+  console.log("received");
   // update a contact in the database
-  Contact.updateOne(
-    { name: req.params.name, uid: req.body.uid },
-    { $set: req.body }
-  )
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "An error occurred while updating the contact.",
-      });
-    });
+  // Contact.updateOne(
+  //   { name: req.params.name, uid: req.body.uid },
+  //   { $set: req.body }
+  // )
+  //   .then((data) => {
+  //     res.send(data);
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({
+  //       message: err.message || "An error occurred while updating the contact.",
+  //     });
+  //   });
 };

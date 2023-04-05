@@ -14,7 +14,7 @@ module.exports = function (app) {
   );
 
   //GET for getting all contacts
-  app.get("/api/getcontacts", controller.findAll);
+  app.post("/api/getcontacts", controller.findAll);
 
   //GET for getting all contacts with a given name
   app.get(
@@ -31,9 +31,9 @@ module.exports = function (app) {
   );
 
   //UPDATE for updating a contact
-  app.put(
-    "/api/updatecontact/:name",
-    [authJwt.verifyToken],
+  app.post(
+    "/api/updatecontact",
+    //[authJwt.verifyToken],
     controller.updateContact
   );
 };
