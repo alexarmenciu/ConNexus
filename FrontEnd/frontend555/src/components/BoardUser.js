@@ -140,12 +140,14 @@ const ContactList = () => {
     ContactService.updateContact(selectedContact.name, selectedContactName, selectedContactFields)
       .then(() => {
         console.log({ name: selectedContact.name, name2: selectedContactName });
-        setEditMode(false);
+        resetSelectedContacts()
         getContacts()
         .then(() => {
           contacts.forEach((contact) => {
             if (contact.name == selectedContactName) {
-              setSelectedContact(contact);
+              // setEditMode(false);
+              // handleContactClick(contact);
+              // setTimeout(handleContactClick(contact), 500);
             }
           });
         })
@@ -156,10 +158,10 @@ const ContactList = () => {
   };
 
   const handleContactClick = (contact) => {
+    setEditMode(false);
     setSelectedContact(contact);
     setSelectedContactFields(contact.additionalFields);
     setSelectedContactName(contact.name);
-    setEditMode(false);
     console.log(selectedContact);
   };
 
@@ -171,6 +173,19 @@ const ContactList = () => {
     setEditMode((prev) => !prev);
   };
 
+  
+  const handleDelete = (event) => {
+    event.preventDefault();
+    ContactService.deleteContact(selectedContact.name)
+      .then(() => {
+        console.log({ name: selectedContact.name});
+        resetSelectedContacts()
+        getContacts();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleAddModeToggle = () => {
     setAddMode((prev) => !prev);
     //sets everything back to default for selected contact
@@ -200,7 +215,7 @@ const ContactList = () => {
 
             <button
               className="btn btn-danger"
-              onClick={handleEditModeToggle}
+              onClick={handleDelete}
             >
               Delete Contact
             </button>
@@ -355,7 +370,7 @@ const ContactList = () => {
                       />
                     </div>
                   ))}
-                  {selectedContact.additionalFields.map((field, index) => (
+                  {selectedContactFields.map((field, index) => (
                     <p key={index}>{field.label} : {field.value}</p>
                   ))}
                   <button

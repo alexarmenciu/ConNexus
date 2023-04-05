@@ -27,10 +27,17 @@ const updateContact = (oldname, name, additionalFields) => {
     });
 };
 
+const deleteContact = (name) => {
+    return axios.patch(API_URL + "deletecontacts/" + name, {
+        uid
+    });
+}
+
 const ContactService = {
     createContact,
     getContacts,
-    updateContact
+    updateContact,
+    deleteContact
 }
 
 export default ContactService;

@@ -24,9 +24,9 @@ module.exports = function (app) {
   );
 
   //DELETE for deleting a contact
-  app.delete(
+  app.patch(
     "/api/deletecontacts/:name",
-    [authJwt.verifyToken],
+    //[authJwt.verifyToken],
     controller.deleteContact
   );
 

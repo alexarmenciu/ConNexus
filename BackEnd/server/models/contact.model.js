@@ -15,10 +15,10 @@ if (fs.existsSync(keyFilePath)) {
   // Generate a 256-bit key
   encryptionKey = CryptoJS.lib.WordArray.random(32);
 
-  
+
   // Convert the key to a Base64-encoded string
   encryptionKey = encryptionKey.toString(CryptoJS.enc.Base64);
-  
+
   // Save the key to a file
   fs.writeFileSync(keyFilePath, encryptionKey);
 }
@@ -53,6 +53,20 @@ ContactSchema.pre('save', async function (next) {
 
     contact.additionalFields = encryptedFields;
   }
+  next();
+});
+
+ContactSchema.pre('updateOne', async function (next) {
+  const contact = this._update.$set;
+  console.log("pre", contact);
+  // encrypt the key value pairs
+  encryptedFields = {};
+  contact.additionalFields.forEach((value, key) => {
+    encryptedKey = CryptoJS.AES.encrypt(key, encryptionKey).toString();
+    encryptedValue = CryptoJS.AES.encrypt(value, encryptionKey).toString();
+    encryptedFields[encryptedKey] = encryptedValue;
+  });
+  contact.additionalFields = encryptedFields;
   next();
 });
 
