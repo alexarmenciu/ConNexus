@@ -38,20 +38,7 @@ import React, { useState, useEffect } from "react";
 import ContactService from "../services/contact.service";
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState([
-    { name: "John Doe", email: "johndoe@example.com", phone: "123-456-7890" },
-    { name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
-    { name: "Bob Johnson", email: "bobjohnson@example.com", phone: "555-555-5555" },
-    { name: "John Doe", email: "johndoe@example.com", phone: "123-456-7890" },
-    { name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
-    { name: "Bob Johnson", email: "bobjohnson@example.com", phone: "555-555-5555" },
-    { name: "John Doe", email: "johndoe@example.com", phone: "123-456-7890" },
-    { name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
-    { name: "Bob Johnson", email: "bobjohnson@example.com", phone: "555-555-5555" },
-    { name: "John Doe", email: "johndoe@example.com", phone: "123-456-7890" },
-    { name: "Jane Smith", email: "janesmith@example.com", phone: "987-654-3210" },
-    { name: "Bob Johnson", email: "bobjohnson@example.com", phone: "555-555-5555" }
-  ]);
+  const [contacts, setContacts] = useState([]);
 
   //const contacts2 = ContactService.getContacts();
   const [selectedContact, setSelectedContact] = useState(null);
