@@ -37,15 +37,22 @@ const vusername = (value) => {
   }
 };
 
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
+const vpassword = (password) => {
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#$%^&*()_+|~-]).{10,40}$/;
+  if (!passwordRegex.test(password)) {
     return (
       <div className="invalid-feedback d-block">
-        The password must be between 6 and 40 characters.
-      </div>
-    );
+       The Password must be between 10 to 40 characters in length
+       <br />
+       The Password must contain at least one special character
+       <br />
+       The Password must contain at least one uppercase letter
+       <br />
+       The Password must contain at least one lowercase letter
+       </div>
+    )
   }
-};
+}
 
 const Register = (props) => {
   const form = useRef();
