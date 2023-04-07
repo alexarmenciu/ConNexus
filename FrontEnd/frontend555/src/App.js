@@ -10,8 +10,6 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
-import BoardAdmin from "./components/BoardAdmin";
 import ChangePassword from "./components/ChangePassword";
 import ChangeUsername from "./components/ChangeUsername";
 import DeleteUser from "./components/DeleteUser";
@@ -142,8 +140,6 @@ const App = () => {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route path="/user" element={<BoardUser />} />
-          <Route path="/mod" element={<BoardModerator />} />
-          <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/changeUsername" element={<ChangeUsername />} />
           <Route path="/policy" element={<Policy />} />
