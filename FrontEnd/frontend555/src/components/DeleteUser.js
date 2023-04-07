@@ -54,7 +54,7 @@ const DeleteUser = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.deleteuser(currentUser.id, username, password).then(
         () => {
-          navigate("/home");
+          navigate("/");
           window.location.reload();
         },
         (error) => {

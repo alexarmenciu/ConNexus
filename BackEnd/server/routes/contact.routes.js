@@ -14,7 +14,7 @@ module.exports = function (app) {
   );
 
   //GET for getting all contacts
-  app.get("/api/getcontacts", [authJwt.verifyToken], controller.findAll);
+  app.post("/api/getcontacts", controller.findAll);
 
   //GET for getting all contacts with a given name
   app.get(
@@ -24,16 +24,16 @@ module.exports = function (app) {
   );
 
   //DELETE for deleting a contact
-  app.delete(
+  app.patch(
     "/api/deletecontacts/:name",
-    [authJwt.verifyToken],
+    //[authJwt.verifyToken],
     controller.deleteContact
   );
 
   //UPDATE for updating a contact
-  app.put(
-    "/api/updatecontact/:name",
-    [authJwt.verifyToken],
+  app.patch(
+    "/api/updatecontact/:oldname",
+    //[authJwt.verifyToken],
     controller.updateContact
   );
 };

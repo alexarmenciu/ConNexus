@@ -24,30 +24,6 @@ const UserSchema = new mongoose.Schema({
   ]
 });
 
-// Hash the password before saving the user to the database
-// UserSchema.pre("save", function (next) {
-//   const user = this;
-
-//   if (!user.isModified("password")) {
-//     return next();
-//   }
-
-//   bcrypt.genSalt(10, (err, salt) => {
-//     if (err) {
-//       return next(err);
-//     }
-
-//     bcrypt.hash(user.password, salt, (err, hash) => {
-//       if (err) {
-//         return next(err);
-//       }
-
-//       user.password = hash;
-//       next();
-//     });
-//   });
-// });
-
 // Delete all contacts associated with the user before removing the user
 UserSchema.pre('deleteOne', async function(next) {
   const id = this.getQuery()['_id'];

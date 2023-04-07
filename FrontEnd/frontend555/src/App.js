@@ -50,6 +50,13 @@ const App = () => {
     setCurrentUser(undefined);
   };
 
+  // currently unused because not sure how to call it from ChangeUsername.js
+  // const updateUser = () => {
+  //   const updateuser = AuthService.getCurrentUser();
+  //   setCurrentUser(updateuser);
+  // }
+  
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -101,7 +108,7 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
+                Profile
               </Link>
             </li>
             <li className="nav-item">
@@ -127,7 +134,7 @@ const App = () => {
         )}
       </nav>
 
-      <div className="container mt-3">
+      <div class="containerStyle">
         <Routes>
           <Route exact path={"/"} element={<Home />} />
           {/* <Route exact path={"/home"} element={<Home />} /> */}

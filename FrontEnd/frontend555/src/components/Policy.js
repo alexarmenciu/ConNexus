@@ -1,40 +1,28 @@
 import React, { useState, useEffect } from "react";
 
-import UserService from "../services/user.service";
+import "./Policy.css";
+import ReactMarkdown from 'react-markdown'
+import termsFrPath from './PrivacyPolicy.md'
 
-const Policy = () => {
-  const [content, setContent] = useState("");
+const Policy = ()=> {
 
-  useEffect(() => {
-    UserService.getPublicContent().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const _content =
-          (error.response && error.response.data) ||
-          error.message ||
-          error.toString();
+  let [ content, setContent] = useState({md: ""});
 
-        setContent(_content);
-      }
-    );
-  }, []);
+  useEffect(()=> {
+      fetch(termsFrPath)
+          .then((res) => res.text())
+          .then((md) => {
+              setContent({ md })
+          })
+  }, [])
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>Privacy Policy</h3>
-      </header>
-      <h2>
-        - We only collect what information you give us. <br></br>
-        - We will auto delete user accounts after one year of inactivity. <br></br>
-        - We keep track of when users are last online to know when to auto delete accounts. <br></br>
-        - We do not track anything else whatsoever. <br></br>
-        - Users can modify all information provided.
-      </h2>
+    <div className="post">
+      <ReactMarkdown children={content.md}/>
     </div>
-  );
-};
+    
+  )
+}
 
 export default Policy;
+

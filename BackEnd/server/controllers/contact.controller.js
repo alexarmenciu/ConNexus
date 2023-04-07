@@ -21,13 +21,19 @@ exports.create = async (req, res) => {
       res.status(400).send({ message: "User does not exist!" });
       return;
     }
-
+    let fields = new Map();
+    req.body.additionalFields.forEach(field => { 
+      if(field.label != "") {
+        fields.set(field.label, field.value)
+      }
+    });
     // Create a Contact
     const contact = new Contact({
       uid: req.body.uid,
       name: req.body.name,
-      additionalFields: req.body.additionalFields,
+      additionalFields: fields,
     });
+
 
     // Save Contact in the database
     await contact.save({ session });
@@ -38,7 +44,7 @@ exports.create = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
-
+    console.log(req.body.name, "added")
     res.send(contact);
   } catch (err) {
     console.error(err);
@@ -50,8 +56,9 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
-  Contact.find({ uid: req.body.uid })
+  Contact.find({uid: req.body.uid})
     .then((data) => {
+      console.log(data);
       res.send(data);
     })
     .catch((err) => {
@@ -90,9 +97,20 @@ exports.deleteContact = (req, res) => {
 };
 
 exports.updateContact = (req, res) => {
+  console.log(req.body);
+  //change additionalfields to map object
+  let fields = new Map();
+  req.body.additionalFields.forEach(field => { 
+    if(field.label != "") {
+      fields.set(field.label, field.value)
+    }
+  });
+
+  req.body.additionalFields = fields;
+  console.log(req.body);
   // update a contact in the database
   Contact.updateOne(
-    { name: req.params.name, uid: req.body.uid },
+    { name: req.params.oldname, uid: req.body.uid },
     { $set: req.body }
   )
     .then((data) => {
