@@ -23,8 +23,6 @@ if (fs.existsSync(keyFilePath)) {
   fs.writeFileSync(keyFilePath, encryptionKey);
 }
 
-console.log('Key:', encryptionKey.toString(CryptoJS.enc.Base64));
-
 const ContactSchema = new mongoose.Schema({
   name: String,
   uid: {
@@ -42,9 +40,11 @@ const ContactSchema = new mongoose.Schema({
 ContactSchema.pre('save', async function (next) {
   const contact = this;
   if (contact.isModified('name')) {
+    console.log("pre", contact);
     // encrypt the name
-    encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
+    const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
     contact.name = encryptedName;
+    console.log("post", contact);
   }
   if (contact.isModified('additionalFields')) {
     // encrypt the key value pairs
@@ -61,7 +61,6 @@ ContactSchema.pre('save', async function (next) {
 
 ContactSchema.pre('updateOne', async function (next) {
   const contact = this._update.$set;
-  console.log("pre", contact);
   // encrypt the key value pairs
   encryptedFields = {};
   contact.additionalFields.forEach((value, key) => {
@@ -70,6 +69,8 @@ ContactSchema.pre('updateOne', async function (next) {
     encryptedFields[encryptedKey] = encryptedValue;
   });
   contact.additionalFields = encryptedFields;
+  const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
+  contact.name = encryptedName;
   next();
 });
 
@@ -77,17 +78,17 @@ ContactSchema.pre('updateOne', async function (next) {
 ContactSchema.post('findOne', async function (doc) {
   if (doc) {
     doc.additionalFields = doc.decryptAdditionalFields();
+    doc.name = CryptoJS.AES.decrypt(doc.name, encryptionKey).toString(CryptoJS.enc.Utf8);
   }
 });
 
 ContactSchema.post('find', async function (docs) {
-  //console.log("pre ", docs)
   if (docs) {
     for (const doc of docs) {
       doc.additionalFields = doc.decryptAdditionalFields();
+      doc.name = CryptoJS.AES.decrypt(doc.name, encryptionKey).toString(CryptoJS.enc.Utf8);
     }
   }
-  //console.log("post ", docs)
 });
 
 // helper to decrypt the additionalFields property

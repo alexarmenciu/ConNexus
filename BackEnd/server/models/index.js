@@ -9,8 +9,6 @@ db.user = require("./user.model");
 db.role = require("./role.model");
 db.contact = require("./contact.model");
 
-console.log(db.user);
-
 //roles
 db.ROLES = ["user", "admin", "moderator"];
 

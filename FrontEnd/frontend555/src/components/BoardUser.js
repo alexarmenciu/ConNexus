@@ -65,7 +65,6 @@ const ContactList = () => {
   const getContacts = async () => {
     try {
       const response = await ContactService.getContacts();;
-      console.log(response.data);
       response.data.forEach(contact => {
         contact.additionalFields = objectToObjectArray(contact.additionalFields);
       })
@@ -84,7 +83,6 @@ const ContactList = () => {
   };
 
   const handleRemoveContactField = () => {
-    console.log(contacts);
     let protoArray = [...newContactFields]
     protoArray.pop()
     setNewContactFields([...protoArray]);
@@ -112,7 +110,6 @@ const ContactList = () => {
     event.preventDefault();
     ContactService.createContact(newContactName, newContactFields)
       .then(() => {
-        console.log({ name: newContactName, fieldz: newContactFields });
         setNewContactName('');
         setNewContactFields([]);
         getContacts();
@@ -126,7 +123,6 @@ const ContactList = () => {
     event.preventDefault();
     ContactService.updateContact(selectedContact._id, selectedContactName, selectedContactFields)
       .then(() => {
-        console.log({ name: selectedContact.name, name2: selectedContactName });
         resetSelectedContacts()
         getContacts()
         .then(() => {
@@ -149,7 +145,6 @@ const ContactList = () => {
     setSelectedContact(contact);
     setSelectedContactFields(contact.additionalFields);
     setSelectedContactName(contact.name);
-    console.log(selectedContact);
   };
 
   const handleFieldChange = (fieldName, newValue) => {
@@ -165,7 +160,6 @@ const ContactList = () => {
     event.preventDefault();
     ContactService.deleteContact(selectedContact._id)
       .then(() => {
-        console.log({ name: selectedContact.name});
         resetSelectedContacts()
         getContacts();
       })

@@ -18,7 +18,6 @@ const createContact = (name, additionalFields) => {
 const getContacts = () => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    console.log(uid);
     return axios.get(userContactsUrl(uid));
 };
 

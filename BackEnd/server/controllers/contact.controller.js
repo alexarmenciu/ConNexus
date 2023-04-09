@@ -58,7 +58,6 @@ exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
   Contact.find({uid: req.params.uid})
     .then((data) => {
-      console.log(data);
       res.send(data);
     })
     .catch((err) => {
@@ -106,7 +105,6 @@ exports.updateContact = (req, res) => {
   });
 
   req.body.additionalFields = fields;
-  console.log(req.body);
   // update a contact in the database
   Contact.updateOne(
     { _id: req.params.cid, uid: req.params.uid },
