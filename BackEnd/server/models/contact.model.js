@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const fs = require("fs");
 const CryptoJS = require("crypto-js");
 
-const keyFilePath = 'encryption.key';
+const keyFilePath = '.encryption.key';
 let encryptionKey;
 
 if (fs.existsSync(keyFilePath)) {
@@ -12,15 +12,7 @@ if (fs.existsSync(keyFilePath)) {
   // // Convert the key string to a WordArray object
   // encryptionKey = CryptoJS.enc.Base64.parse(keyString);
 } else {
-  // Generate a 256-bit key
-  encryptionKey = CryptoJS.lib.WordArray.random(32);
-
-
-  // Convert the key to a Base64-encoded string
-  encryptionKey = encryptionKey.toString(CryptoJS.enc.Base64);
-
-  // Save the key to a file
-  fs.writeFileSync(keyFilePath, encryptionKey);
+  throw new Error("Encryption key file not found");
 }
 
 const ContactSchema = new mongoose.Schema({
