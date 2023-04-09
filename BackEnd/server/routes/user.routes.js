@@ -26,34 +26,34 @@ module.exports = function (app) {
 
   app.get(
     "/api/getusers",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.findAll
   );
 
   app.get(
     "/api/getuser/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.show
   );
 
   //post
   app.post(
     "/api/createuser",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.create
   );
 
   // patch
   app.patch(
     "/api/updateuser/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.update
   );
 
   // delete
   app.patch(
     "/api/deleteuser/:id",
-    // [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.delete
   );
 };
