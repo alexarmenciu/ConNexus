@@ -85,7 +85,7 @@ exports.findByName = (req, res) => {
 
 exports.deleteContact = (req, res) => {
   // delete a contact from database
-  Contact.deleteOne({ name: req.params.name, uid: req.params.uid })
+  Contact.deleteOne({ _id: req.params.cid, uid: req.params.uid })
     .then((data) => {
       res.send(data);
     })
@@ -97,7 +97,6 @@ exports.deleteContact = (req, res) => {
 };
 
 exports.updateContact = (req, res) => {
-  console.log(req.body);
   //change additionalfields to map object
   let fields = new Map();
   req.body.additionalFields.forEach(field => { 
@@ -110,7 +109,7 @@ exports.updateContact = (req, res) => {
   console.log(req.body);
   // update a contact in the database
   Contact.updateOne(
-    { name: req.params.oldname, uid: req.params.uid },
+    { _id: req.params.cid, uid: req.params.uid },
     { $set: req.body }
   )
     .then((data) => {

@@ -16,23 +16,16 @@ module.exports = function (app) {
   //GET for getting all contacts
   app.get("/api/user/:uid/contacts", controller.findAll);
 
-  //GET for getting all contacts with a given name
-  app.get(
-    "/api/user/:uid/contacts/:name",
-    [authJwt.verifyToken],
-    controller.findByName
-  );
-
   //DELETE for deleting a contact
   app.delete(
-    "/api/user/:uid/contacts/:name",
+    "/api/user/:uid/contacts/:cid",
     //[authJwt.verifyToken],
     controller.deleteContact
   );
 
   //UPDATE for updating a contact
   app.patch(
-    "/api/user/:uid/contacts/:oldname",
+    "/api/user/:uid/contacts/:cid",
     //[authJwt.verifyToken],
     controller.updateContact
   );

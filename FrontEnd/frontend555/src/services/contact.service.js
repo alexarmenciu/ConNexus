@@ -22,19 +22,19 @@ const getContacts = () => {
     return axios.get(userContactsUrl(uid));
 };
 
-const updateContact = (oldname, name, additionalFields) => {
+const updateContact = (cid, name, additionalFields) => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    return axios.patch(userContactsUrl(uid) + '/' + oldname, {
+    return axios.patch(userContactsUrl(uid) + '/' + cid, {
         name,
         additionalFields
     });
 };
 
-const deleteContact = (name) => {
+const deleteContact = (cid) => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    return axios.delete(userContactsUrl(uid) + "/" + name);
+    return axios.delete(userContactsUrl(uid) + "/" + cid);
 }
 
 const ContactService = {

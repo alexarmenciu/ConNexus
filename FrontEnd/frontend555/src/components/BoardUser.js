@@ -124,7 +124,7 @@ const ContactList = () => {
 
   const handleContactUpdate = (event) => {
     event.preventDefault();
-    ContactService.updateContact(selectedContact.name, selectedContactName, selectedContactFields)
+    ContactService.updateContact(selectedContact._id, selectedContactName, selectedContactFields)
       .then(() => {
         console.log({ name: selectedContact.name, name2: selectedContactName });
         resetSelectedContacts()
@@ -163,7 +163,7 @@ const ContactList = () => {
   
   const handleDelete = (event) => {
     event.preventDefault();
-    ContactService.deleteContact(selectedContact.name)
+    ContactService.deleteContact(selectedContact._id)
       .then(() => {
         console.log({ name: selectedContact.name});
         resetSelectedContacts()
