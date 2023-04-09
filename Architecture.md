@@ -60,9 +60,8 @@ This controller handles user signup, login, and logout. We support the following
 * `POST auth/signup` - Creates a new user. The body of the request should contain the username and password of the user. <br>
 * `POST auth/singout` - Logs out the user. <br>
 
-The authentication endpoints do not require a valid jwt token, as they are used to create a new jwt token for the user. <br>
-
 **Note:** All controller requests require a valid jwt token. Upon on successful login, the server will set the jwt token in a cookie, which is used for authentication of subsequent requests.
+The authentication endpoints do not require a valid jwt token, as they are used to create a new jwt token for the user. <br>
 
 
 ## Important Scenarios: 
