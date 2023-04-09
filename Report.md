@@ -56,10 +56,10 @@ Another significant point of utility not implemented was the ability to recover 
 
 ## References
 
-[^1]: [Rainbow Tables](https://www.sciencedirect.com/science/article/pii/B9781597499613000066)
-[^2]: [Towards Practical Attacks on Argon2](https://eprint.iacr.org/2016/759.pdf)
-[^3]: [Progressive Web Apps](https://ieeexplore.ieee.org/abstract/document/8287006)
-[^4]: [Web Password Recovery: A Necessary Evil?](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
-[^5]: [Use of Messaging Apps and Social Network Sites Among Older Adults: A Mixed-Method Study](https://ijoc.org/index.php/ijoc/article/view/14435/3194)
+[^1]: [Eric Conrad, Seth Misenar, Joshua Feldman, Chapter 6 - Domain 5: Cryptography; Rainbow Tables, Editor(s): Eric Conrad, Seth Misenar, Joshua Feldman, CISSP Study Guide (Second Edition), Syngress, 2012, Pages 213-255, ISBN 9781597499613, https://doi.org/10.1016/B978-1-59749-961-3.00006-6.](https://www.sciencedirect.com/science/article/pii/B9781597499613000066)
+[^2]: [J. Alwen and J. Blocki, "Towards Practical Attacks on Argon2i and Balloon Hashing," 2017 IEEE European Symposium on Security and Privacy (EuroS&P), Paris, France, 2017, pp. 142-157, doi: 10.1109/EuroSP.2017.47.](https://eprint.iacr.org/2016/759.pdf)
+[^3]: [B. Frankston, "Progressive Web Apps [Bits Versus Electrons]," in IEEE Consumer Electronics Magazine, vol. 7, no. 2, pp. 106-117, March 2018, doi: 10.1109/MCE.2017.2776463.](https://ieeexplore.ieee.org/abstract/document/8287006)
+[^4]: [Maqbali, F.A., Mitchell, C.J. 2019. Web Password Recovery: A Necessary Evil?. In: Arai, K., Bhatia, R., Kapoor, S. (eds) Proceedings of the Future Technologies Conference (FTC) 2018. FTC 2018. Advances in Intelligent Systems and Computing, vol 881. Springer, Cham. https://doi.org/10.1007/978-3-030-02683-7_23](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
+[^5]: [Yu, R.P., 2020. Use of messaging apps and social network sites among older adults: A mixed-method study. International Journal of Communication, 14, p.21.](https://ijoc.org/index.php/ijoc/article/view/14435/3194)
 [^6]: [ConNexus Requirements Document](/Requirements.md)
-[^7]: [JavaScript frameworks: Angular vs React vs Vue](https://www.theseus.fi/bitstream/handle/10024/261970/Thesis-Elar-Saks.pdf)
+[^7]: [Saks, E., 2019. JavaScript Frameworks: Angular vs React vs Vue.](https://www.theseus.fi/bitstream/handle/10024/261970/Thesis-Elar-Saks.pdf)
