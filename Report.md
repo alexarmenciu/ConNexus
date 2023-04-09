@@ -37,8 +37,16 @@ We chose mongoDB for our database due to it being an object database rather than
 ### Data Models
 
 #### User Model
+Users are the primary object in our system. we chose to model the user as a simple object with a username and password field, as we do not need to store any other information about the user. <br>
+Additionally, we decided not to link users to each other, or create a social network aspect to the system, in order to keep the most possible amount of privacy for the user. <br>
 
 #### Contact Model
+Each user has a list of contacts, which are simple objects with a name field, and a map of custom fields. The custom fields are stored as a map between two strings, where the first string is the name of the field, and the second string is the value of the field. This allows for a flexible amount of fields to be added to a contact, and allows for the user to add any number of fields to a contact. <br>
+To make sure the user's data is secure, we encrypt the contact data before storing it in the database, and decrypt it before sending it to the user. <br>
+All encryption is done in the backend, and the encryption key is stored in the environment variables, which are not accessible to the user. <br>
+For additional security, the app should be used over https, to encrypt the data in transit. <br>
+
+For more information on the data models, see the [Architecture Document](Architecture.md).
 
 #### On the Criticism of bcrypt during Presentations
 
