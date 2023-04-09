@@ -9,24 +9,27 @@ module.exports = function (app) {
 
   //POST for creating a new contact
   app.post("/api/user/:uid/contacts",
-    // [authJwt.verifyToken],
+    [authJwt.verifyToken],
     controller.create
   );
 
   //GET for getting all contacts
-  app.get("/api/user/:uid/contacts", controller.findAll);
+  app.get("/api/user/:uid/contacts", 
+    [authJwt.verifyToken],
+    controller.findAll
+  );
 
   //DELETE for deleting a contact
   app.delete(
     "/api/user/:uid/contacts/:cid",
-    //[authJwt.verifyToken],
+    [authJwt.verifyToken],
     controller.deleteContact
   );
 
   //UPDATE for updating a contact
   app.patch(
     "/api/user/:uid/contacts/:cid",
-    //[authJwt.verifyToken],
+    [authJwt.verifyToken],
     controller.updateContact
   );
 };

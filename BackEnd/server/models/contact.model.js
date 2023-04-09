@@ -40,11 +40,9 @@ const ContactSchema = new mongoose.Schema({
 ContactSchema.pre('save', async function (next) {
   const contact = this;
   if (contact.isModified('name')) {
-    console.log("pre", contact);
     // encrypt the name
     const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
     contact.name = encryptedName;
-    console.log("post", contact);
   }
   if (contact.isModified('additionalFields')) {
     // encrypt the key value pairs
