@@ -2,12 +2,14 @@ import axios from "axios";
 import AuthService from "./auth.service";
 const API_URL = "http://localhost:3000/api/";
 
+const userContactsUrl = (uid) => {
+    return API_URL + "user/" + uid + "/contacts";
+};
 
 const createContact = (name, additionalFields) => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    return axios.post(API_URL + "putcontact", {
-        uid,
+    return axios.post(userContactsUrl(uid), {
         name,
         additionalFields
     });
@@ -17,16 +19,13 @@ const getContacts = () => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
     console.log(uid);
-    return axios.post(API_URL + "getcontacts", {
-        uid
-    });
+    return axios.get(userContactsUrl(uid));
 };
 
 const updateContact = (oldname, name, additionalFields) => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    return axios.patch(API_URL + "updatecontact/" + oldname, {
-        uid,
+    return axios.patch(userContactsUrl(uid) + '/' + oldname, {
         name,
         additionalFields
     });
@@ -35,9 +34,7 @@ const updateContact = (oldname, name, additionalFields) => {
 const deleteContact = (name) => {
     const currentUser = AuthService.getCurrentUser();
     const uid = currentUser.id;
-    return axios.patch(API_URL + "deletecontacts/" + name, {
-        uid
-    });
+    return axios.delete(userContactsUrl(uid) + "/" + name);
 }
 
 const ContactService = {

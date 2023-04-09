@@ -8,31 +8,31 @@ module.exports = function (app) {
   });
 
   //POST for creating a new contact
-  app.post("/api/putcontact",
+  app.post("/api/user/:uid/contacts",
     // [authJwt.verifyToken],
     controller.create
   );
 
   //GET for getting all contacts
-  app.post("/api/getcontacts", controller.findAll);
+  app.get("/api/user/:uid/contacts", controller.findAll);
 
   //GET for getting all contacts with a given name
   app.get(
-    "/api/getcontacts/:name",
+    "/api/user/:uid/contacts/:name",
     [authJwt.verifyToken],
     controller.findByName
   );
 
   //DELETE for deleting a contact
-  app.patch(
-    "/api/deletecontacts/:name",
+  app.delete(
+    "/api/user/:uid/contacts/:name",
     //[authJwt.verifyToken],
     controller.deleteContact
   );
 
   //UPDATE for updating a contact
   app.patch(
-    "/api/updatecontact/:oldname",
+    "/api/user/:uid/contacts/:oldname",
     //[authJwt.verifyToken],
     controller.updateContact
   );

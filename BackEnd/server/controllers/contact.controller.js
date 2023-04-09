@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 exports.create = async (req, res) => {
 // Validate request
-  if (!req.body.name || !req.body.uid) {
+  if (!req.body.name || !req.params.uid) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
     session.startTransaction();
 
     // Validate User with uid exists
-    const user = await User.findById(req.body.uid).session(session);
+    const user = await User.findById(req.params.uid).session(session);
     if (!user) {
       res.status(400).send({ message: "User does not exist!" });
       return;
@@ -29,7 +29,7 @@ exports.create = async (req, res) => {
     });
     // Create a Contact
     const contact = new Contact({
-      uid: req.body.uid,
+      uid: req.params.uid,
       name: req.body.name,
       additionalFields: fields,
     });
@@ -56,7 +56,7 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
   // get all contacts from database matching a given uid
-  Contact.find({uid: req.body.uid})
+  Contact.find({uid: req.params.uid})
     .then((data) => {
       console.log(data);
       res.send(data);
@@ -71,7 +71,7 @@ exports.findAll = (req, res) => {
 
 exports.findByName = (req, res) => {
   // get all contacts that match a given name from database
-  Contact.find({ name: req.params.name, uid: req.body.uid })
+  Contact.find({ name: req.params.name, uid: req.params.uid })
     .then((data) => {
       res.send(data);
     })
@@ -85,7 +85,7 @@ exports.findByName = (req, res) => {
 
 exports.deleteContact = (req, res) => {
   // delete a contact from database
-  Contact.deleteOne({ name: req.params.name, uid: req.body.uid })
+  Contact.deleteOne({ name: req.params.name, uid: req.params.uid })
     .then((data) => {
       res.send(data);
     })
@@ -110,7 +110,7 @@ exports.updateContact = (req, res) => {
   console.log(req.body);
   // update a contact in the database
   Contact.updateOne(
-    { name: req.params.oldname, uid: req.body.uid },
+    { name: req.params.oldname, uid: req.params.uid },
     { $set: req.body }
   )
     .then((data) => {
