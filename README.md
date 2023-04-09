@@ -37,4 +37,4 @@ If you want to run the server using our remote database, you will need to create
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
 * Leo Chen
 * Alex Armenciu
-* Dijian Guo
+* Dijian Guo: dijian.guo@mail.mcgill.ca
