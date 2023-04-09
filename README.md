@@ -31,10 +31,10 @@ Since all the data in the database is encrypted, you will need to create a maste
 node createMasterKey.js
 ```
 
-If you want to run the server using our remote database, you will need to create the .encryption.key file in the `Backend` directory. This file contains the master key for the remote database. You can ask [wassim](wassim.wazzi@mail.mcgill.ca) for the master key.
+If you want to run the server using our remote database, you will need to create the .encryption.key file in the `Backend` directory. This file contains the master key for the remote database. You can ask [wassim](#authors-and-acknowledgment) for the master key.
 
 ## Authors and acknowledgment
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
-* [Leo Chen]()
-* [Alex Armenciu]()
-* [Dijian Guo]()
+* Leo Chen
+* Alex Armenciu
+* Dijian Guo
