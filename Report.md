@@ -18,9 +18,27 @@ The system follows the seven principles of privacy by design, and is GDPR and PI
 
 ## Design and Implementation
 
+### Technologies and Discussions
+
+All technologies we worked with (barring the database, mongoDB Atlas), were open source. This was a deliberate design decision with the user in mind, to ensure that the user has the ability to audit the code and ensure that the system is not doing anything malicious with their data, from the bottom (our technologies used), to the top (our code which the user interacts with). Open source technologies also allow for the user to contribute to the project, and improve the system for themselves and others, a stance explained in the _Overview of the System_ section of this report.
+
+#### On the Choice of React for Frontend Development
+
+We chose React for our frontend development because it is a popular and well-supported framework (in fact the most popular frontend web framework, see section 2 of the linked paper[^7]), and as such, our two designated frontend members Leo and Dijian were already comfortable with the technology, having done internships working on projects using the React framework. We also chose React because it is a component-based framework, which lends itself well to the modular design of our system (namely, the way we model the user and the contact separately), and allows for easy development of new features.
+
+#### On the Criticism of bcrypt during Presentations
+
+There are no known attacks on bcrypt, beyond brute force attacks which attempt to generate possible password strings then hash them and compare with known hashes. Also known as rainbow tables[^1], this attack is impractical and in fact what bcrypt excels at stopping. Compare this to a competitor algorithm, Argon2, which was presented by group 8 as an objectively better alternative to bcrypt. Argon2i has known attacks[^2], namely, it is practical to attack the algorithm as long as it uses 10 or less iterations in the code, where 3 is the default and likely the amount most services use. We feel confident our choice of bcrypt is the best choice for our system.
+
 ### Data Models
 
 #### User Model
+
+#### Contact Model
+
+### Endpoints
+
+### Frontend
 
 ## Discussion
 
@@ -32,10 +50,6 @@ However, we are not as hubristic as to think that ConNexus has no flaws. We beli
 
 Another significant point of utility not implemented was the ability to recover one's password. This was not implemented due to our decision to not require an email for signup, as we felt that it was not necessary for the user to have an email to realize the full features of ConNexus. There is fairly recent literature on the topic of password recovery[^4] which suggests a new model for password recovery that would allow privacy to be maintained, but we considered this to be technically out of scope for a project of this size.
 
-### On the Criticism of bcrypt during Presentations
-
-There are no known attacks on bcrypt, beyond brute force attacks which attempt to generate possible password strings then hash them and compare with known hashes. Also known as rainbow tables[^1], this attack is impractical and in fact what bcrypt excels at stopping. Compare this to a competitor algorithm, Argon2, which was presented by group 8 as an objectively better alternative to bcrypt. Argon2i has known attacks[^2], namely, it is practical to attack the algorithm as long as it uses 10 or less iterations in the code, where 3 is the default and likely the amount most services use. We feel confident our choice of bcrypt is the best choice for our system.
-
 ## References
 
 [^1]: [Rainbow Tables](https://www.sciencedirect.com/science/article/pii/B9781597499613000066)
@@ -44,3 +58,4 @@ There are no known attacks on bcrypt, beyond brute force attacks which attempt t
 [^4]: [Web Password Recovery: A Necessary Evil?](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
 [^5]: [Use of Messaging Apps and Social Network Sites Among Older Adults: A Mixed-Method Study](https://ijoc.org/index.php/ijoc/article/view/14435/3194)
 [^6]: [ConNexus Requirements Document](/Requirements.md)
+[^7]: [JavaScript frameworks: Angular vs React vs Vue](https://www.theseus.fi/bitstream/handle/10024/261970/Thesis-Elar-Saks.pdf)
