@@ -38,9 +38,14 @@ const ContactSchema = new mongoose.Schema({
   },
 });
 
-// Encrypt the additionalFields property before saving to the database
+// Encrypt the name and additionalFields property before saving to the database
 ContactSchema.pre('save', async function (next) {
   const contact = this;
+  if (contact.isModified('name')) {
+    // encrypt the name
+    encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
+    contact.name = encryptedName;
+  }
   if (contact.isModified('additionalFields')) {
     // encrypt the key value pairs
     encryptedFields = {};
@@ -49,8 +54,6 @@ ContactSchema.pre('save', async function (next) {
       encryptedValue = CryptoJS.AES.encrypt(value, encryptionKey).toString();
       encryptedFields[encryptedKey] = encryptedValue;
     });
-
-
     contact.additionalFields = encryptedFields;
   }
   next();
