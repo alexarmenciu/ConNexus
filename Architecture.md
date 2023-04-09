@@ -1,6 +1,7 @@
 # Architecture
 
-## Stakeholders: For internal skateholders, we have the project team. For external skateholders, we have the users.
+## Stakeholders:
+For internal skateholders, we have the project team. For external skateholders, we have the users.
 
 ## Architectural Design Decisions:
 We use React in the frontend, and Node.js in the backend. We use MongoDB as our database. We use bcrypt to hash and salt the passwords of the users. We use AES-256 to encrypt the data in the database. We use JWT to authenticate the users. We encrypt the data using an AES-256 key. We use a master key to encrypt all the data in the database. A future improvement is to use a different key for each user, so that if a user's account is compromised, only their data is compromised. This however, required complex key management.
