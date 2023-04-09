@@ -26,9 +26,13 @@ All technologies we worked with (barring the database, mongoDB Atlas), were open
 
 We chose React for our frontend development because it is a popular and well-supported framework (in fact the most popular frontend web framework, see section 2 of the linked paper[^7]), and as such, our two designated frontend members Leo and Dijian were already comfortable with the technology, having done internships working on projects using the React framework. We also chose React because it is a component-based framework, which lends itself well to the modular design of our system (namely, the way we model the user and the contact separately), and allows for easy development of new features.
 
-#### On the Criticism of bcrypt during Presentations
+#### On the Choice of Node.js for Backend Development
 
-There are no known attacks on bcrypt, beyond brute force attacks which attempt to generate possible password strings then hash them and compare with known hashes. Also known as rainbow tables[^1], this attack is impractical and in fact what bcrypt excels at stopping. Compare this to a competitor algorithm, Argon2, which was presented by group 8 as an objectively better alternative to bcrypt. Argon2i has known attacks[^2], namely, it is practical to attack the algorithm as long as it uses 10 or less iterations in the code, where 3 is the default and likely the amount most services use. We feel confident our choice of bcrypt is the best choice for our system.
+Similarly to the choice of React, we chose Node.js for our backend development due to its popularity and the fact that Wassim had experience with the technology before the project, and so our two backend members Wassim and Alex were able to quickly implement essential features on the backend. It also allowed us to use the Mongoose modelling tool, which provides interfacing between Node.js and our mongoDB database.
+
+#### On the Choice of mongoDB for Database Storage
+
+We chose mongoDB for our database due to it being an object database rather than a traditional relational database. This allows variance in the data stored in the database, which is important for our system, as we allow users to add any number of fields to a contact. We chose to model the custom fields as a map between two strings in our contact model, an intuitive design, however, this would not translate well to implementation in a relational database as it is bad form to increase the width of a field to store heavy objects.
 
 ### Data Models
 
@@ -36,9 +40,9 @@ There are no known attacks on bcrypt, beyond brute force attacks which attempt t
 
 #### Contact Model
 
-### Endpoints
+#### On the Criticism of bcrypt during Presentations
 
-### Frontend
+There are no known attacks on bcrypt, beyond brute force attacks which attempt to generate possible password strings then hash them and compare with known hashes. Also known as rainbow tables[^1], this attack is impractical and in fact what bcrypt excels at stopping. Compare this to a competitor algorithm, Argon2, which was presented by group 8 as an objectively better alternative to bcrypt. Argon2i has known attacks[^2], namely, it is practical to attack the algorithm as long as it uses 10 or less iterations in the code, where 3 is the default and likely the amount most services use. We feel confident our choice of bcrypt is the best choice for our system.
 
 ## Discussion
 
