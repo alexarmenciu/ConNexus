@@ -36,11 +36,16 @@ We chose mongoDB for our database due to it being an object database rather than
 
 ### Data Models
 
+![User and Contact Model](/images/ER%20schema.png)
+Figure 1: The User and Contact Models
+
 #### User Model
+
 Users are the primary object in our system. we chose to model the user as a simple object with a username and password field, as we do not need to store any other information about the user. <br>
 Additionally, we decided not to link users to each other, or create a social network aspect to the system, in order to keep the most possible amount of privacy for the user. <br>
 
 #### Contact Model
+
 Each user has a list of contacts, which are simple objects with a name field, and a map of custom fields. The custom fields are stored as a map between two strings, where the first string is the name of the field, and the second string is the value of the field. This allows for a flexible amount of fields to be added to a contact, and allows for the user to add any number of fields to a contact. <br>
 To make sure the user's data is secure, we encrypt the contact data before storing it in the database, and decrypt it before sending it to the user. <br>
 All encryption is done in the backend, and the encryption key is stored in the environment variables, which are not accessible to the user. <br>
@@ -71,4 +76,4 @@ Another significant point of utility not implemented was the ability to recover 
 [^5]: [J. Alwen and J. Blocki, "Towards Practical Attacks on Argon2i and Balloon Hashing," 2017 IEEE European Symposium on Security and Privacy (EuroS&P), Paris, France, 2017, pp. 142-157, doi: 10.1109/EuroSP.2017.47.](https://eprint.iacr.org/2016/759.pdf)
 [^6]: [B. Frankston, "Progressive Web Apps [Bits Versus Electrons]," in IEEE Consumer Electronics Magazine, vol. 7, no. 2, pp. 106-117, March 2018, doi: 10.1109/MCE.2017.2776463.](https://ieeexplore.ieee.org/abstract/document/8287006)
 [^7]: [Maqbali, F.A., Mitchell, C.J. 2019. Web Password Recovery: A Necessary Evil?. In: Arai, K., Bhatia, R., Kapoor, S. (eds) Proceedings of the Future Technologies Conference (FTC) 2018. FTC 2018. Advances in Intelligent Systems and Computing, vol 881. Springer, Cham. https://doi.org/10.1007/978-3-030-02683-7_23](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
-[^8]: https://programmers.io/web-development-using-reactjs-with-nodejs/ 
+[^8]: https://programmers.io/web-development-using-reactjs-with-nodejs/
