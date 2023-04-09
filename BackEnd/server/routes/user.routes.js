@@ -32,28 +32,28 @@ module.exports = function (app) {
 
   app.get(
     "/api/getuser/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.show
   );
 
   //post
   app.post(
     "/api/createuser",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.create
   );
 
   // patch
   app.patch(
     "/api/updateuser/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.update
   );
 
   // delete
   app.patch(
     "/api/deleteuser/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.delete
   );
 };

@@ -11,7 +11,7 @@ const register = (username, password) => {
 };
 
 const deleteuser = (id, username, password) => {
-  return axios.patch(API_USER + " " + id, {
+  return axios.patch(API_USER + "deleteuser/" + id, {
     username,
     password,
   })
