@@ -35,6 +35,7 @@ If you want to run the server using our remote database, you will need to create
 
 ## Code Documentation
 For the jsdoc documentation, please refer to the [backend docs](BackEnd/doc/index.html) and [frontend docs](FrontEnd/doc/index.html).
+As Gitlab Pages are not enabled for this repository, the best way to view the documentation is to clone the repository and open the index.html files in a browser.
 
 ## Authors and acknowledgment
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
