@@ -41,7 +41,7 @@ const ContactSchema = new mongoose.Schema({
  */
 ContactSchema.pre('save', async function (next) {
   const contact = this;
-  contact.encryptContact();
+  encryptContact(contact);
   next();
 });
 
@@ -51,8 +51,7 @@ ContactSchema.pre('save', async function (next) {
 ContactSchema.pre('updateOne', async function (next) {
   
   const contact = this._update.$set;
-  console.log(contact,"contact")
-  encryptContactUpdate(contact);
+  encryptContact(contact);
   next();
 });
 
@@ -78,8 +77,15 @@ ContactSchema.post('find', async function (docs) {
   }
 });
 
-const encryptContactUpdate = function (contact) {
-  console.log(contact);
+/**
+ * Encrypts the additionalFields and name properties before saving to the database.
+ * The fields are encrypted using AES encryption with the master encryption key.
+ * To encrypt the additionalFields, we encrypt each key value pair.
+ * 
+ * @param {Contact} contact - The contact to encrypt
+ * @returns {void}
+ */
+const encryptContact = function (contact) {
     const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
     contact.name = encryptedName;
     encryptedFields = {};
@@ -90,34 +96,6 @@ const encryptContactUpdate = function (contact) {
     });
     contact.additionalFields = encryptedFields;
   }
-
-/**
- * Encrypts the additionalFields and name properties before saving to the database.
- * The fields are encrypted using AES encryption with the master encryption key.
- * To encrypt the additionalFields, we encrypt each key value pair.
- * 
- * @param {Contact} contact - The contact to encrypt
- * @returns {void}
- */
-ContactSchema.methods.encryptContact = function () {
-  const contact = this;
-  console.log(contact);
-  if (contact.isModified('name')) {
-    // encrypt the name
-    const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
-    contact.name = encryptedName;
-  }
-  if (contact.isModified('additionalFields')) {
-    // encrypt the key value pairs
-    encryptedFields = {};
-    this.additionalFields.forEach((value, key) => {
-      encryptedKey = CryptoJS.AES.encrypt(key, encryptionKey).toString();
-      encryptedValue = CryptoJS.AES.encrypt(value, encryptionKey).toString();
-      encryptedFields[encryptedKey] = encryptedValue;
-    });
-    contact.additionalFields = encryptedFields;
-  }
-}
 
 /**
  * Helper to decrypt the additionalFields property of a contact.
