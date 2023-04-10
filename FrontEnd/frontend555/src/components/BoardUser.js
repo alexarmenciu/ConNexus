@@ -1,39 +1,3 @@
-// import React, { useState, useEffect } from "react";
-
-// import UserService from "../services/user.service";
-
-// const BoardUser = () => {
-//   const [content, setContent] = useState("");
-
-//   useEffect(() => {
-//     UserService.getUserBoard().then(
-//       (response) => {
-//         setContent(response.data);
-//       },
-//       (error) => {
-//         const _content =
-//           (error.response &&
-//             error.response.data &&
-//             error.response.data.message) ||
-//           error.message ||
-//           error.toString();
-
-//         setContent(_content);
-//       }
-//     );
-//   }, []);
-
-//   return (
-//     <div className="container">
-//       <header className="jumbotron">
-//         <h3>{content}</h3>
-//       </header>
-//     </div>
-//   );
-// };
-
-// export default BoardUser;
-
 import React, { useState, useEffect } from "react";
 import ContactService from "../services/contact.service";
 
@@ -45,7 +9,7 @@ const ContactList = () => {
   const [newContactName, setNewContactName] = useState('');
   const [newContactFields, setNewContactFields] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [addMode, setAddMode] = useState(false);
+
   useEffect(() => {
     getContacts();
   }, []);
@@ -71,7 +35,7 @@ const ContactList = () => {
       console.log(error);
     }
   };
-  //new COntact
+  //new Contact
   const handleNewContactField = () => {
     setNewContactFields([...newContactFields, { label: '', value: '' }]);
   };
@@ -123,15 +87,12 @@ const ContactList = () => {
       .then(() => {
         resetSelectedContacts()
         getContacts()
-        .then(() => {
-          contacts.forEach((contact) => {
-            if (contact.name == selectedContactName) {
-              // setEditMode(false);
-              // handleContactClick(contact);
-              // setTimeout(handleContactClick(contact), 500);
-            }
-          });
-        })
+          .then(() => {
+            contacts.forEach((contact) => {
+              if (contact.name === selectedContactName) {
+              }
+            });
+          })
       })
       .catch((error) => {
         console.log(error);
@@ -145,15 +106,11 @@ const ContactList = () => {
     setSelectedContactName(contact.name);
   };
 
-  const handleFieldChange = (fieldName, newValue) => {
-    setSelectedContact((prev) => ({ ...prev, [fieldName]: newValue }));
-  };
-
   const handleEditModeToggle = () => {
     setEditMode((prev) => !prev);
   };
 
-  
+
   const handleDelete = (event) => {
     event.preventDefault();
     ContactService.deleteContact(selectedContact._id)
@@ -166,7 +123,6 @@ const ContactList = () => {
       });
   };
   const handleAddModeToggle = () => {
-    setAddMode((prev) => !prev);
     //sets everything back to default for selected contact
     resetSelectedContacts();
     setNewContactName('');
@@ -204,7 +160,7 @@ const ContactList = () => {
             >
               Edit Contact
             </button>
-            <input style={{ width: "300px" }} type="text" className="form-control" placeholder="Search Contact"/>
+            <input style={{ width: "300px" }} type="text" className="form-control" placeholder="Search Contact" />
           </>
         ) : (<></>)}
       </div>
@@ -230,63 +186,63 @@ const ContactList = () => {
 
               {editMode ? (
                 <>
-                <form onSubmit={handleContactUpdate}>
-              <div style={{ marginBottom: "10px" }}>
-                <div>
-                  <label>Name:</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    value={selectedContactName}
-                    required
-                    onChange={(e) => setSelectedContactName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Fields:</label>
-                  {selectedContactFields.map((field, index) => (
-                    <div style={{ marginBottom: "20px" }} key={index}>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={field.label}
-                        placeholder="Label"
-                        onChange={(e) =>
-                          handleSelectedContactFieldChange(
-                            index,
-                            'label',
-                            e.target.value
-                          )
-                        }
-                      />
-                      <input
-                        className="form-control"
-                        type="text"
-                        value={field.value}
-                        placeholder="Value"
-                        onChange={(e) =>
-                          handleSelectedContactFieldChange(
-                            index,
-                            'value',
-                            e.target.value
-                          )
-                        }
-                      />
-                    </div>
-                  ))}
+                  <form onSubmit={handleContactUpdate}>
+                    <div style={{ marginBottom: "10px" }}>
+                      <div>
+                        <label>Name:</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={selectedContactName}
+                          required
+                          onChange={(e) => setSelectedContactName(e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label>Fields:</label>
+                        {selectedContactFields.map((field, index) => (
+                          <div style={{ marginBottom: "20px" }} key={index}>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={field.label}
+                              placeholder="Label"
+                              onChange={(e) =>
+                                handleSelectedContactFieldChange(
+                                  index,
+                                  'label',
+                                  e.target.value
+                                )
+                              }
+                            />
+                            <input
+                              className="form-control"
+                              type="text"
+                              value={field.value}
+                              placeholder="Value"
+                              onChange={(e) =>
+                                handleSelectedContactFieldChange(
+                                  index,
+                                  'value',
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </div>
+                        ))}
 
-                </div>
-                <div className="buttonGroup" style={{ columnGap: "10px" }}>
-                  <button type="button" className="btn btn-success" onClick={handleNewSelectedContactField}>
-                    Add Field
-                  </button>
-                  <button type="button" className="btn btn-danger" onClick={handleRemoveSelectedContactField}>
-                    Remove Last Field
-                  </button>
-                  <button type="submit" className="btn btn-primary">Save</button>
-                </div>
-              </div>
-            </form>
+                      </div>
+                      <div className="buttonGroup" style={{ columnGap: "10px" }}>
+                        <button type="button" className="btn btn-success" onClick={handleNewSelectedContactField}>
+                          Add Field
+                        </button>
+                        <button type="button" className="btn btn-danger" onClick={handleRemoveSelectedContactField}>
+                          Remove Last Field
+                        </button>
+                        <button type="submit" className="btn btn-primary">Save</button>
+                      </div>
+                    </div>
+                  </form>
                 </>
               ) : (
                 <>
