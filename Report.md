@@ -84,5 +84,5 @@ This leads us to envision new schools of thought on potential advances in the fi
 [^5]: [J. Alwen and J. Blocki, "Towards Practical Attacks on Argon2i and Balloon Hashing," 2017 IEEE European Symposium on Security and Privacy (EuroS&P), Paris, France, 2017, pp. 142-157, doi: 10.1109/EuroSP.2017.47.](https://eprint.iacr.org/2016/759.pdf)
 [^6]: [B. Frankston, "Progressive Web Apps [Bits Versus Electrons]," in IEEE Consumer Electronics Magazine, vol. 7, no. 2, pp. 106-117, March 2018, doi: 10.1109/MCE.2017.2776463.](https://ieeexplore.ieee.org/abstract/document/8287006)
 [^7]: [Maqbali, F.A., Mitchell, C.J. 2019. Web Password Recovery: A Necessary Evil?. In: Arai, K., Bhatia, R., Kapoor, S. (eds) Proceedings of the Future Technologies Conference (FTC) 2018. FTC 2018. Advances in Intelligent Systems and Computing, vol 881. Springer, Cham. https://doi.org/10.1007/978-3-030-02683-7_23](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
-[^8]: https://programmers.io/web-development-using-reactjs-with-nodejs/
-[^9]: https://www.mongodb.com/cloud/atlas/security
+[^8]: [Tushar. (2021, July 20). Reasons to use react with node JS for web development. Programmers.io. Retrieved April 9, 2023, from https://programmers.io/web-development-using-reactjs-with-nodejs/](https://programmers.io/web-development-using-reactjs-with-nodejs/)
+[^9]: [MongoDB Atlas Security. MongoDB. (n.d.). Retrieved April 9, 2023, from https://www.mongodb.com/cloud/atlas/security](https://www.mongodb.com/cloud/atlas/security)
