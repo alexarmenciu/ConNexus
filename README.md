@@ -35,6 +35,6 @@ If you want to run the server using our remote database, you will need to create
 
 ## Authors and acknowledgment
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
-* Leo Chen
+* Leo Chen: leo.chen@mail.mcgill.ca
 * Alex Armenciu
 * Dijian Guo: dijian.guo@mail.mcgill.ca
