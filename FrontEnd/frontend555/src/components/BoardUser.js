@@ -38,9 +38,7 @@ import React, { useState, useEffect } from "react";
 import ContactService from "../services/contact.service";
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState([]);
-
-  //const contacts2 = ContactService.getContacts();
+  const [contacts, setContacts] = useState([]);;
   const [selectedContact, setSelectedContact] = useState(null);
   const [selectedContactFields, setSelectedContactFields] = useState([]);
   const [selectedContactName, setSelectedContactName] = useState('');
@@ -206,6 +204,7 @@ const ContactList = () => {
             >
               Edit Contact
             </button>
+            <input style={{ width: "300px" }} type="text" className="form-control" placeholder="Search Contact"/>
           </>
         ) : (<></>)}
       </div>
@@ -288,36 +287,6 @@ const ContactList = () => {
                 </div>
               </div>
             </form>
-                  {/* <div className="mb-3">
-                    <label htmlFor="editName" className="form-label">Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="editName"
-                      value={selectedContact.name}
-                      onChange={(e) => handleFieldChange("name", e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="editEmail" className="form-label">Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="editEmail"
-                      value={selectedContact.email}
-                      onChange={(e) => handleFieldChange("email", e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="editPhone" className="form-label">Phone</label>
-                    <input
-                      type="tel"
-                      className="form-control"
-                      id="editPhone"
-                      value={selectedContact.phone}
-                      onChange={(e) => handleFieldChange("phone", e.target.value)}
-                    />
-                  </div> */}
                 </>
               ) : (
                 <>
