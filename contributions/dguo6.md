@@ -1,3 +1,5 @@
+# Dijian Guo Contribution Report
+
 For this project, my main contribution was as a frontend developer for the web application, though mid way through I ended up working on backend as well since I found it to be more efficient as I debugged and modified server side code. I did so especially since I wanted to test the features but as bugs and adjustments kept coming up on the backend side it was making things difficult. Also, I worked with Leo at the start for the foundation of our app with login/register and session.
 
 Here are some commits among many small ones that tracks my progress (I committed under Potato455 for many of the code commits):
