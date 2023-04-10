@@ -10,7 +10,6 @@ const ObjectId = mongoose.Types.ObjectId;
  * @property {string} username - The username of the user
  * @property {string} password - The password of the user
  * @property {ObjectId[]} roles - The roles of the user
- * @property {ObjectId[]} contacts - The contacts of the user
  */
 const UserSchema = new mongoose.Schema({
   username: {
@@ -23,12 +22,6 @@ const UserSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role"
-    }
-  ],
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Contact"
     }
   ]
 });
