@@ -69,3 +69,7 @@ Discussion.
 https://gitlab.cs.mcgill.ca/aarmen2/comp-555-project-group-8/-/commit/da962e0bb560cd5a68ebe98085cc0fd63acee236
 
 References.
+
+### Presentation
+
+Did most work on presentation, with minor help from Leo and Dijian.
