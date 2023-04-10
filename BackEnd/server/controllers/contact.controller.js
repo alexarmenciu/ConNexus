@@ -47,10 +47,6 @@ exports.create = async (req, res) => {
     // Save Contact in the database
     await contact.save({ session });
 
-    // Update user's contacts
-    user.contacts.push(contact._id);
-    await user.save({ session });
-
     await session.commitTransaction();
     session.endSession();
     console.log(req.body.name, "added")

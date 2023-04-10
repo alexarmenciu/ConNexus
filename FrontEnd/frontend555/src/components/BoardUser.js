@@ -59,6 +59,14 @@ const ContactList = () => {
     setSelectedContactFields([...protoArray]);
   };
 
+  //remove a chosen field
+  const handleRemoveMiddleSelectedContactField = (index) => {
+    let protoArray = [...selectedContactFields]
+    console.log(index);
+    protoArray.splice(index, 1)
+    setSelectedContactFields([...protoArray]);
+  };
+
   //add contact field(add mode)
   const handleNewContactFieldChange = (index, key, value) => {
     const fields = [...newContactFields];
@@ -145,8 +153,8 @@ const ContactList = () => {
     setNewContactFields([]);
   }
 
-   //cancel changes in edit mode
-   const resetSelectedContacts = () => {
+  //cancel changes in edit mode
+  const resetSelectedContacts = () => {
     setSelectedContactFields([...selectedContact.additionalFields]);
     setSelectedContactName(selectedContact.name);
     setEditMode(false);
@@ -160,7 +168,7 @@ const ContactList = () => {
     setSelectedContactName('');
   };
 
- 
+
   return (
     <div>
       <div class="buttonGroup">
@@ -212,7 +220,7 @@ const ContactList = () => {
               {editMode ? (
                 <>
                   <form onSubmit={handleContactUpdate}>
-                    <div style={{ marginBottom: "10px" }}>
+                    <div style={{ marginBottom: "10px", paddingBottom: "10px" }}>
                       <div>
                         <label>Name:</label>
                         <input
@@ -226,34 +234,41 @@ const ContactList = () => {
                       <div>
                         <label>Fields:</label>
                         {selectedContactFields.map((field, index) => (
-                          <div style={{ marginBottom: "20px" }} key={index}>
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={field.label}
-                              placeholder="Label"
-                              onChange={(e) =>
-                                handleSelectedContactFieldChange(
-                                  index,
-                                  'label',
-                                  e.target.value
-                                )
-                              }
-                            />
-                            <input
-                              className="form-control"
-                              type="text"
-                              value={field.value}
-                              placeholder="Value"
-                              onChange={(e) =>
-                                handleSelectedContactFieldChange(
-                                  index,
-                                  'value',
-                                  e.target.value
-                                )
-                              }
-                            />
+                          <div key={index}>
+                            <div style={{ marginBottom: "10px" }}>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={field.label}
+                                placeholder="Label"
+                                onChange={(e) =>
+                                  handleSelectedContactFieldChange(
+                                    index,
+                                    'label',
+                                    e.target.value
+                                  )
+                                }
+                              />
+                              <input
+                                className="form-control"
+                                type="text"
+                                value={field.value}
+                                placeholder="Value"
+                                onChange={(e) =>
+                                  handleSelectedContactFieldChange(
+                                    index,
+                                    'value',
+                                    e.target.value
+                                  )
+                                }
+                              />
+
+                            </div>
+                            <div style={{ marginBottom: "20px" }}><button type="button" onClick={() => { handleRemoveMiddleSelectedContactField(index) }} class="btn btn-danger">
+                              <i class="bi bi-trash"></i> Delete
+                            </button></div>
                           </div>
+
                         ))}
 
                       </div>
