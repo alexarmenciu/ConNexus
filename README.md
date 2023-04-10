@@ -33,6 +33,9 @@ node createMasterKey.js
 
 If you want to run the server using our remote database, you will need to create the .encryption.key file in the `Backend` directory. This file contains the master key for the remote database. You can ask [wassim](#authors-and-acknowledgment) for the master key.
 
+## Code Documentation
+For the jsdoc documentation, please refer to the [backend docs](Backend/doc/index.html) and [frontend docs](Frontend/doc/index.html).
+
 ## Authors and acknowledgment
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
 * Leo Chen

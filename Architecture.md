@@ -31,7 +31,6 @@ The Contact model contains the following fields:
 ### User
 We support the following endpoints for the user model:
 * `GET /user/:id` - Returns the user with the given id.
-* `POST /user` - Creates a new user. The body of the request should contain the username and password of the user. <br>
 * `PUT /user/:id` - Updates the user with the given id. This endpoint is used to update the username and/or password of the user. The body of the request should contain the username and password of the user.
 * `DELETE /user/:id` - Deletes the user with the given id. <br>
 **Note:** Deleting a user will also delete all the contacts associated with that user.

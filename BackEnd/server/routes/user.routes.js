@@ -36,13 +36,6 @@ module.exports = function (app) {
     controller.show
   );
 
-  //post
-  app.post(
-    "/api/createuser",
-    [authJwt.verifyToken],
-    controller.create
-  );
-
   // patch
   app.patch(
     "/api/updateuser/:id",
