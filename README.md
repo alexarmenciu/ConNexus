@@ -38,6 +38,6 @@ For the jsdoc documentation, please refer to the [backend docs](Backend/doc/inde
 
 ## Authors and acknowledgment
 * Wassim Wazzi: wassim.wazzi@mail.mcgill.ca
-* Leo Chen
+* Leo Chen: leo.chen@mail.mcgill.ca
 * Alex Armenciu
-* Dijian Guo
+* Dijian Guo: dijian.guo@mail.mcgill.ca
