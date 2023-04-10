@@ -49,8 +49,10 @@ ContactSchema.pre('save', async function (next) {
  * Encrypts the contact's fields before updating in the database
  */
 ContactSchema.pre('updateOne', async function (next) {
+  
   const contact = this._update.$set;
-  contact.encryptContact();
+  console.log(contact,"contact")
+  encryptContactUpdate(contact);
   next();
 });
 
@@ -76,6 +78,19 @@ ContactSchema.post('find', async function (docs) {
   }
 });
 
+const encryptContactUpdate = function (contact) {
+  console.log(contact);
+    const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
+    contact.name = encryptedName;
+    encryptedFields = {};
+    contact.additionalFields.forEach((value, key) => {
+      encryptedKey = CryptoJS.AES.encrypt(key, encryptionKey).toString();
+      encryptedValue = CryptoJS.AES.encrypt(value, encryptionKey).toString();
+      encryptedFields[encryptedKey] = encryptedValue;
+    });
+    contact.additionalFields = encryptedFields;
+  }
+
 /**
  * Encrypts the additionalFields and name properties before saving to the database.
  * The fields are encrypted using AES encryption with the master encryption key.
@@ -86,6 +101,7 @@ ContactSchema.post('find', async function (docs) {
  */
 ContactSchema.methods.encryptContact = function () {
   const contact = this;
+  console.log(contact);
   if (contact.isModified('name')) {
     // encrypt the name
     const encryptedName = CryptoJS.AES.encrypt(contact.name, encryptionKey).toString();
