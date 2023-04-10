@@ -4,7 +4,36 @@
 For internal skateholders, we have the project team. For external skateholders, we have the users.
 
 ## Architectural Design Decisions:
-We use React in the frontend, and Node.js in the backend. We use MongoDB as our database. We use bcrypt to hash and salt the passwords of the users. We use AES-256 to encrypt the data in the database. We use JWT to authenticate the users. We encrypt the data using an AES-256 key. We use a master key to encrypt all the data in the database. A future improvement is to use a different key for each user, so that if a user's account is compromised, only their data is compromised. This however, required complex key management.
+We designed the software to be a web application that has three main modules:
+
+| Module        | Description                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------ |
+| Authentication | The authentication module represents the basic setup for login and user session. The component includes signup, signin, and signup along with the security features necessary to protect the user account. |
+| User          | The user module is based on the user model itself and the operations a user can execute on their account such as password/username change or account deletion. |
+| Contact       | The contact module represents the main features of ConneXus and it includes all the contact operations such as add, modify, delete. The contact component is linked to the user component as each user has a list of contacts. |
+
+Our software uses the model-view-controller architectural pattern which means our code is essentially separated into three components. 
+Here's the code for the table:
+
+| Component   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| View        | The view component of our application is implemented in the front-end and is responsible for the user interface and the data presentation. Our view component is implemented using HTML, CSS, Javascript with usage of the React framework and Bootstrap library.                                                                                                                                                                                                                             |
+| Controller | The controller component is implemented in the back-end using Javascript and Node.js framework. The controller receives the user’s input and processes their requests in order to update the model and view. The back-end storage is hosted on MongoDB cloud servers.                                                                                                                                                                                                                                                  |
+| Model       | The model component is implemented as the classes and data structures defined in both backend and frontend to encapsulate the data during transfer. In the backend, the data structures are represented by MongoDB schemas and are compatible to the data structures coming from the frontend.                                                                                                                                                                                                                                   |
+
+The communication between components reflects the MVC design pattern: 
+| Communication     | Description                                                                                                       |
+|---|---|
+| View->Controller  | Frontend sends REST APIs to communicate with the controller.                                            |
+| Controller->Model | Controller updates the model after processing the user’s request. This operation is reflected on the cloud database. |
+| Model->View       | REST API response is sent back once the database is updated and the view is updated.                    |
+
+
+
+Notably, our design focuses on security to ensure privacy. We make use of encryption tools such as bcrypt for user passwords. We are also using an AES-256 master key to encrypt the rest of the data in the database. A futur improvement is to use a different key for each user, so that if a user's account is compromised, only their data is compromised. This however, required complex key management. However, MongoDB Entreprise has an encryption feature that can be used to further secure data. We also make use of Axios as a HTTP client to handle API requests and JSON Web Tokens to authenticate data transmission. 
+
+Our design’s primary privacy benefits come from how our 3 main modules are designed. Authentication only requires username and password which means it does not collect PII. Users have full control over their accounts and can delete their accounts at any time. Lastly, the contact module is implemented such that each user can have their custom contact information fields which makes it untraceable even if a malicious attacker would gain access to the encrypted database
+
 
 
 ## Architectural Models:
