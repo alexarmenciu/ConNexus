@@ -35,39 +35,45 @@ const ContactList = () => {
       console.log(error);
     }
   };
-  //new Contact
+  //add new contact field(addmode) 
   const handleNewContactField = () => {
     setNewContactFields([...newContactFields, { label: '', value: '' }]);
   };
 
+  //add new contact field(editmode) 
   const handleNewSelectedContactField = () => {
     setSelectedContactFields([...selectedContactFields, { label: '', value: '' }]);
   };
 
+  //remove contact field (add mode)
   const handleRemoveContactField = () => {
     let protoArray = [...newContactFields]
     protoArray.pop()
     setNewContactFields([...protoArray]);
   };
 
+  //remove contact field (edit mode)
   const handleRemoveSelectedContactField = () => {
     let protoArray = [...selectedContactFields]
     protoArray.pop()
     setSelectedContactFields([...protoArray]);
   };
 
+  //add contact field(add mode)
   const handleNewContactFieldChange = (index, key, value) => {
     const fields = [...newContactFields];
     fields[index][key] = value;
     setNewContactFields(fields);
   };
 
+  //add contact field(edit mode)
   const handleSelectedContactFieldChange = (index, key, value) => {
     const fields = [...selectedContactFields];
     fields[index][key] = value;
     setSelectedContactFields(fields);
   };
 
+  //submit new contact
   const handleNewContactSubmit = (event) => {
     event.preventDefault();
     ContactService.createContact(newContactName, newContactFields)
@@ -81,11 +87,12 @@ const ContactList = () => {
       });
   };
 
+  //save edited contact 
   const handleContactUpdate = (event) => {
     event.preventDefault();
     ContactService.updateContact(selectedContact._id, selectedContactName, selectedContactFields)
       .then(() => {
-        resetSelectedContacts()
+        clearSelectedContacts()
         getContacts()
           .then(() => {
             contacts.forEach((contact) => {
@@ -99,13 +106,15 @@ const ContactList = () => {
       });
   };
 
+  //Click on contact list
   const handleContactClick = (contact) => {
     setEditMode(false);
     setSelectedContact(contact);
-    setSelectedContactFields(contact.additionalFields);
+    setSelectedContactFields([...contact.additionalFields]);
     setSelectedContactName(contact.name);
   };
 
+  //turn on/off edit mode
   const handleEditModeToggle = () => {
     setEditMode((prev) => !prev);
   };
@@ -115,7 +124,7 @@ const ContactList = () => {
     event.preventDefault();
     ContactService.deleteContact(selectedContact._id)
       .then(() => {
-        resetSelectedContacts()
+        clearSelectedContacts()
         getContacts();
       })
       .catch((error) => {
@@ -124,18 +133,23 @@ const ContactList = () => {
   };
   const handleAddModeToggle = () => {
     //sets everything back to default for selected contact
-    resetSelectedContacts();
+    clearSelectedContacts();
     setNewContactName('');
     setNewContactFields([]);
   };
 
-  const resetSelectedContacts = () => {
+  const clearSelectedContacts = () => {
     //sets everything back to default for selected contact
     setSelectedContact(null);
     setSelectedContactFields([]);
     setSelectedContactName('');
   };
 
+  const resetSelectedContacts = () => {
+    setSelectedContactFields([...selectedContact.additionalFields]);
+    setSelectedContactName(selectedContact.name);
+    setEditMode(false);
+  }
   return (
     <div>
       <div class="buttonGroup">
@@ -240,6 +254,7 @@ const ContactList = () => {
                           Remove Last Field
                         </button>
                         <button type="submit" className="btn btn-primary">Save</button>
+                        <button type="submit" className="btn btn-warning" onClick={resetSelectedContacts} >Cancel</button>
                       </div>
                     </div>
                   </form>
