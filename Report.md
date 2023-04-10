@@ -67,6 +67,14 @@ However, we are not as hubristic as to think that ConNexus has no flaws. We beli
 
 Another significant point of utility not implemented was the ability to recover one's password. This was not implemented due to our decision to not require an email for signup, as we felt that it was not necessary for the user to have an email to realize the full features of ConNexus. There is fairly recent literature on the topic of password recovery[^7] which suggests a new model for password recovery that would allow privacy to be maintained, but we considered this to be technically out of scope for a project of this size.
 
+### On the Move to the User Sphere
+
+An idea that we had and mentioned during our presentation was the introduction of a local mode to the system. This local mode would use local storage to host a mongoDB instance, and all data processing and transfer would occur on the user sphere, rather than on the joint and recipient spheres. This would completely null all discussions around privacy, as no data would escape to any computer network.
+
+Realizing this, we see the end goal of any non-connected open source system as achieving independence from any server connection.
+
+This leads us to envision new schools of thought on potential advances in the field of software privacy. Is there any way to pre-cache websites a user might choose to visit and mimic their behavior on device, so that a user doesn't have to produce a trail of crumbs everywhere they browse on the web? Is there any way to provide an on-device system which provides arbitrary data to cloud services, but maps them to local data so that the user experience is exactly the same, whereas transmitted data is void of any PII? These are questions which we end the project with, and we believe the tools learned in the course will allow us to find our way to the answers.
+
 ## References
 
 [^1]: [Yu, R.P., 2020. Use of messaging apps and social network sites among older adults: A mixed-method study. International Journal of Communication, 14, p.21.](https://ijoc.org/index.php/ijoc/article/view/14435/3194)
@@ -77,4 +85,4 @@ Another significant point of utility not implemented was the ability to recover 
 [^6]: [B. Frankston, "Progressive Web Apps [Bits Versus Electrons]," in IEEE Consumer Electronics Magazine, vol. 7, no. 2, pp. 106-117, March 2018, doi: 10.1109/MCE.2017.2776463.](https://ieeexplore.ieee.org/abstract/document/8287006)
 [^7]: [Maqbali, F.A., Mitchell, C.J. 2019. Web Password Recovery: A Necessary Evil?. In: Arai, K., Bhatia, R., Kapoor, S. (eds) Proceedings of the Future Technologies Conference (FTC) 2018. FTC 2018. Advances in Intelligent Systems and Computing, vol 881. Springer, Cham. https://doi.org/10.1007/978-3-030-02683-7_23](https://link.springer.com/chapter/10.1007/978-3-030-02683-7_23#Abs1)
 [^8]: https://programmers.io/web-development-using-reactjs-with-nodejs/
-[^9]: https://www.mongodb.com/cloud/atlas/security 
+[^9]: https://www.mongodb.com/cloud/atlas/security
